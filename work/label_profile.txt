@@ -1,0 +1,199 @@
+scenes: main=1030 extended=5000
+
+== environment by group ==
+twins_00000-00029    n=   30  env={'GARAGE': 30}  driver_only=30
+main_00030-00059     n=   30  env={'URBAN': 11, 'COUNTRYSIDE': 8, 'NATURE': 6, 'HIGHWAY': 5}  driver_only=4
+main_00060+          n=  970  env={'COUNTRYSIDE': 256, 'URBAN': 252, 'NATURE': 234, 'HIGHWAY': 228}  driver_only=179
+extended             n= 5000  env={'NATURE': 1289, 'HIGHWAY': 1278, 'COUNTRYSIDE': 1242, 'URBAN': 1191}  driver_only=925
+
+== value counts per feature (twins | main_00030+ | extended) ==
+driver_gender                      twins={'FEMALE': 15, 'MALE': 15}
+                                   m30-59={'FEMALE': 16, 'MALE': 14}
+                                   m60+={'FEMALE': 497, 'MALE': 473}
+                                   ext={'FEMALE': 2481, 'MALE': 2519}
+driver_tshirt_color                twins={'BLACK': 17, 'WHITE': 13}
+                                   m30-59={'BLACK': 13, 'WHITE': 17}
+                                   m60+={'BLACK': 459, 'WHITE': 511}
+                                   ext={'BLACK': 2491, 'WHITE': 2509}
+driver_emotion                     twins={'HAPPY': 9, 'SERIOUS': 21}
+                                   m30-59={'HAPPY': 12, 'SERIOUS': 18}
+                                   m60+={'HAPPY': 493, 'SERIOUS': 477}
+                                   ext={'HAPPY': 2526, 'SERIOUS': 2474}
+driver_phone                       twins={'NO': 6, 'YES': 24}
+                                   m30-59={'NO': 13, 'YES': 17}
+                                   m60+={'NO': 492, 'YES': 478}
+                                   ext={'NO': 2558, 'YES': 2442}
+driver_safety_belt                 twins={'NO': 20, 'YES': 10}
+                                   m30-59={'NO': 11, 'YES': 19}
+                                   m60+={'NO': 522, 'YES': 448}
+                                   ext={'NO': 2575, 'YES': 2425}
+passenger_codriver                 twins={'NO': 30}
+                                   m30-59={'NO': 23, 'YES': 7}
+                                   m60+={'NO': 721, 'YES': 249}
+                                   ext={'NO': 3689, 'YES': 1311}
+passenger_codriver_gender          twins={None: 30}
+                                   m30-59={'FEMALE': 4, 'MALE': 3, None: 23}
+                                   m60+={'FEMALE': 120, 'MALE': 129, None: 721}
+                                   ext={'FEMALE': 661, 'MALE': 650, None: 3689}
+passenger_codriver_tshirt_color    twins={None: 30}
+                                   m30-59={'BLACK': 2, None: 23, 'WHITE': 5}
+                                   m60+={'BLACK': 120, None: 721, 'WHITE': 129}
+                                   ext={'BLACK': 669, None: 3689, 'WHITE': 642}
+passenger_codriver_emotion         twins={None: 30}
+                                   m30-59={'HAPPY': 2, None: 23, 'SERIOUS': 5}
+                                   m60+={'HAPPY': 113, None: 721, 'SERIOUS': 136}
+                                   ext={'HAPPY': 651, None: 3689, 'SERIOUS': 660}
+codriver_safety_belt               twins={None: 30}
+                                   m30-59={'NO': 5, None: 23, 'YES': 2}
+                                   m60+={'NO': 125, None: 721, 'YES': 124}
+                                   ext={'NO': 662, None: 3689, 'YES': 649}
+passenger_rear_seat_left           twins={'NO': 30}
+                                   m30-59={'NO': 13, 'YES': 17}
+                                   m60+={'NO': 480, 'YES': 490}
+                                   ext={'NO': 2461, 'YES': 2539}
+passenger_rear_left_gender         twins={None: 30}
+                                   m30-59={'FEMALE': 6, 'MALE': 11, None: 13}
+                                   m60+={'FEMALE': 242, 'MALE': 248, None: 480}
+                                   ext={'FEMALE': 1254, 'MALE': 1285, None: 2461}
+passenger_rear_left_tshirt_color   twins={None: 30}
+                                   m30-59={'BLACK': 8, None: 13, 'WHITE': 9}
+                                   m60+={'BLACK': 266, None: 480, 'WHITE': 224}
+                                   ext={'BLACK': 1291, None: 2461, 'WHITE': 1248}
+passenger_rear_left_emotion        twins={None: 30}
+                                   m30-59={'HAPPY': 12, None: 13, 'SERIOUS': 5}
+                                   m60+={'HAPPY': 253, None: 480, 'SERIOUS': 237}
+                                   ext={'HAPPY': 1287, None: 2461, 'SERIOUS': 1252}
+passenger_rear_left_safety_belt    twins={None: 30}
+                                   m30-59={'NO': 6, None: 13, 'YES': 11}
+                                   m60+={'NO': 245, None: 480, 'YES': 245}
+                                   ext={'NO': 1288, None: 2461, 'YES': 1251}
+passenger_rear_seat_right          twins={'NO': 30}
+                                   m30-59={'NO': 17, 'YES': 13}
+                                   m60+={'NO': 475, 'YES': 495}
+                                   ext={'NO': 2527, 'YES': 2473}
+passenger_rear_right_gender        twins={None: 30}
+                                   m30-59={'FEMALE': 8, 'MALE': 5, None: 17}
+                                   m60+={'FEMALE': 236, 'MALE': 259, None: 475}
+                                   ext={'FEMALE': 1227, 'MALE': 1246, None: 2527}
+passenger_rear_right_tshirt_color  twins={None: 30}
+                                   m30-59={'BLACK': 6, None: 17, 'WHITE': 7}
+                                   m60+={'BLACK': 230, None: 475, 'WHITE': 265}
+                                   ext={'BLACK': 1178, None: 2527, 'WHITE': 1295}
+passenger_rear_right_emotion       twins={None: 30}
+                                   m30-59={'HAPPY': 8, None: 17, 'SERIOUS': 5}
+                                   m60+={'HAPPY': 236, None: 475, 'SERIOUS': 259}
+                                   ext={'HAPPY': 1237, None: 2527, 'SERIOUS': 1236}
+passenger_rear_right_safety_belt   twins={None: 30}
+                                   m30-59={'NO': 6, None: 17, 'YES': 7}
+                                   m60+={'NO': 238, None: 475, 'YES': 257}
+                                   ext={'NO': 1177, None: 2527, 'YES': 1296}
+phone_codriver_seat                twins={'NO': 25, 'YES': 5}
+                                   m30-59={'NO': 26, 'YES': 4}
+                                   m60+={'NO': 824, 'YES': 146}
+                                   ext={'NO': 4377, 'YES': 623}
+phone_codriver_seat_color          twins={'BLACK': 2, None: 25, 'WHITE': 3}
+                                   m30-59={'BLACK': 2, None: 26, 'WHITE': 2}
+                                   m60+={'BLACK': 69, None: 824, 'WHITE': 77}
+                                   ext={'BLACK': 298, None: 4377, 'WHITE': 325}
+colabottle_codriver_seat           twins={'NO': 26, 'YES': 4}
+                                   m30-59={'NO': 27, 'YES': 3}
+                                   m60+={'NO': 844, 'YES': 126}
+                                   ext={'NO': 4407, 'YES': 593}
+colacan_codriver_seat              twins={'NO': 26, 'YES': 4}
+                                   m30-59={'NO': 27, 'YES': 3}
+                                   m60+={'NO': 859, 'YES': 111}
+                                   ext={'NO': 4397, 'YES': 603}
+suitcase                           twins={'NO': 15, 'YES': 15}
+                                   m30-59={'NO': 14, 'YES': 16}
+                                   m60+={'NO': 480, 'YES': 490}
+                                   ext={'NO': 2527, 'YES': 2473}
+suitcase_color                     twins={'ANTRACITE': 9, None: 15, 'YELLOW': 6}
+                                   m30-59={'ANTRACITE': 6, None: 14, 'YELLOW': 10}
+                                   m60+={'ANTRACITE': 244, None: 480, 'YELLOW': 246}
+                                   ext={'ANTRACITE': 1273, None: 2527, 'YELLOW': 1200}
+suitcase_location                  twins={None: 15, 'REAR_SEAT': 15}
+                                   m30-59={None: 14, 'REAR_SEAT': 16}
+                                   m60+={'CO_DRIVER_SEAT': 6, None: 480, 'REAR_SEAT': 484}
+                                   ext={'CO_DRIVER_SEAT': 34, None: 2527, 'REAR_SEAT': 2439}
+suitcase_pose                      twins={'FLAT': 10, None: 15, 'UPWARDS': 5}
+                                   m30-59={'FLAT': 9, None: 14, 'UPWARDS': 7}
+                                   m60+={'FLAT': 242, None: 486, 'UPWARDS': 242}
+                                   ext={'FLAT': 1235, None: 2561, 'UPWARDS': 1204}
+baby_seat                          twins={'NO': 11, 'YES': 19}
+                                   m30-59={'NO': 13, 'YES': 17}
+                                   m60+={'NO': 503, 'YES': 467}
+                                   ext={'NO': 2515, 'YES': 2485}
+baby_seat_orientation              twins={'FRONT_FACING': 12, None: 11, 'REAR_FACING': 7}
+                                   m30-59={'FRONT_FACING': 8, None: 13, 'REAR_FACING': 9}
+                                   m60+={'FRONT_FACING': 220, None: 503, 'REAR_FACING': 247}
+                                   ext={'FRONT_FACING': 1232, None: 2515, 'REAR_FACING': 1253}
+baby                               twins={'NO': 4, None: 11, 'YES': 15}
+                                   m30-59={'NO': 8, None: 13, 'YES': 9}
+                                   m60+={'NO': 244, None: 503, 'YES': 223}
+                                   ext={'NO': 1238, None: 2515, 'YES': 1247}
+
+out-of-vocabulary values: none
+
+== parent/child null consistency ==
+passenger_codriver_gender          <- passenger_codriver         consistent
+passenger_codriver_tshirt_color    <- passenger_codriver         consistent
+passenger_codriver_emotion         <- passenger_codriver         consistent
+passenger_rear_left_gender         <- passenger_rear_seat_left   consistent
+passenger_rear_left_tshirt_color   <- passenger_rear_seat_left   consistent
+passenger_rear_left_emotion        <- passenger_rear_seat_left   consistent
+passenger_rear_right_gender        <- passenger_rear_seat_right  consistent
+passenger_rear_right_tshirt_color  <- passenger_rear_seat_right  consistent
+passenger_rear_right_emotion       <- passenger_rear_seat_right  consistent
+codriver_safety_belt               <- passenger_codriver         consistent
+passenger_rear_left_safety_belt    <- passenger_rear_seat_left   consistent
+passenger_rear_right_safety_belt   <- passenger_rear_seat_right  consistent
+phone_codriver_seat_color          <- phone_codriver_seat        consistent
+suitcase_color                     <- suitcase                   consistent
+suitcase_location                  <- suitcase                   consistent
+suitcase_pose                      <- suitcase                   {'parent YES, child null': 40}
+baby_seat_orientation              <- baby_seat                  consistent
+baby                               <- baby_seat                  consistent
+
+== co-driver seat co-occurrence (all scenes) ==
+phone_codriver_seat          {('NO', 'NO'): 3685, ('NO', 'YES'): 778, ('YES', 'NO'): 1567}
+colabottle_codriver_seat     {('NO', 'NO'): 3737, ('NO', 'YES'): 726, ('YES', 'NO'): 1567}
+colacan_codriver_seat        {('NO', 'NO'): 3742, ('NO', 'YES'): 721, ('YES', 'NO'): 1567}
+baby_seat                    {('NO', 'NO'): 1475, ('NO', 'YES'): 2988, ('YES', 'NO'): 1567}
+suitcase_location            {('NO', 'CO_DRIVER_SEAT'): 40, ('NO', 'REAR_SEAT'): 2190, ('NO', None): 2233, ('YES', 'REAR_SEAT'): 764, ('YES', None): 803}
+baby_seat_vs_suitcase_loc    {('NO', 'CO_DRIVER_SEAT'): 40, ('NO', 'REAR_SEAT'): 1437, ('NO', None): 1565, ('YES', 'REAR_SEAT'): 1517, ('YES', None): 1471}
+rear_pax_vs_baby_seat        {(('NO', 'NO'), 'NO'): 775, (('NO', 'NO'), 'YES'): 746, (('NO', 'YES'), 'NO'): 718, (('NO', 'YES'), 'YES'): 745, (('YES', 'NO'), 'NO'): 746, (('YES', 'NO'), 'YES'): 782, (('YES', 'YES'), 'NO'): 803, (('YES', 'YES'), 'YES'): 715}
+
+== priors (majority non-null value, share) ==
+driver_gender                      MALE            0.501
+driver_tshirt_color                WHITE           0.5058
+driver_emotion                     HAPPY           0.5041
+driver_phone                       NO              0.509
+driver_safety_belt                 NO              0.5187
+passenger_codriver                 NO              0.7401
+passenger_codriver_gender          FEMALE          0.501
+passenger_codriver_tshirt_color    BLACK           0.5048
+passenger_codriver_emotion         SERIOUS         0.5112
+codriver_safety_belt               NO              0.5054
+passenger_rear_seat_left           YES             0.5051
+passenger_rear_left_gender         MALE            0.5069
+passenger_rear_left_tshirt_color   BLACK           0.5138
+passenger_rear_left_emotion        HAPPY           0.5095
+passenger_rear_left_safety_belt    NO              0.5053
+passenger_rear_seat_right          NO              0.5056
+passenger_rear_right_gender        MALE            0.5065
+passenger_rear_right_tshirt_color  WHITE           0.5257
+passenger_rear_right_emotion       SERIOUS         0.5032
+passenger_rear_right_safety_belt   YES             0.5233
+phone_codriver_seat                NO              0.871
+phone_codriver_seat_color          WHITE           0.5231
+colabottle_codriver_seat           NO              0.8796
+colacan_codriver_seat              NO              0.8804
+suitcase                           NO              0.5035
+suitcase_color                     ANTRACITE       0.5117
+suitcase_location                  REAR_SEAT       0.9866
+suitcase_pose                      FLAT            0.5064
+baby_seat                          NO              0.5045
+baby_seat_orientation              REAR_FACING     0.5074
+baby                               YES             0.5
+
+priors-only accuracy on all labelled features: 0.5842 (124462 features)

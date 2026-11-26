@@ -1,0 +1,14 @@
+{
+  "id": "nitishxdandu/isu-track-b-data",
+  "title": "isu-track-b-data",
+  "code_file": "download_data.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}

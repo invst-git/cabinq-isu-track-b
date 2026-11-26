@@ -1,0 +1,74 @@
+{
+  "v2": {
+    "wrong": [],
+    "near1": 0,
+    "min": [
+      5.336,
+      "extended/sample_1182_sim:passenger_rear_right_emotion"
+    ],
+    "n_wrong_holdout": 0,
+    "n_wrong_real_seen": 0
+  },
+  "v2s1": {
+    "wrong": [],
+    "near1": 0,
+    "min": [
+      5.468,
+      "extended/sample_2046_sim:passenger_rear_right_emotion"
+    ],
+    "n_wrong_holdout": 0,
+    "n_wrong_real_seen": 0
+  },
+  "v4": {
+    "wrong": [
+      [
+        "extended/sample_1249_sim",
+        "passenger_rear_right_emotion",
+        1.074
+      ],
+      [
+        "extended/sample_1706_sim",
+        "passenger_rear_right_emotion",
+        -2.177
+      ],
+      [
+        "extended/sample_1734_sim",
+        "passenger_rear_right_emotion",
+        -0.154
+      ],
+      [
+        "extended/sample_2054_sim",
+        "passenger_rear_right_emotion",
+        -0.803
+      ],
+      [
+        "extended/sample_4081_sim",
+        "passenger_rear_right_emotion",
+        -1.338
+      ],
+      [
+        "extended/sample_4991_sim",
+        "passenger_rear_right_emotion",
+        -0.276
+      ]
+    ],
+    "near1": 7,
+    "min": [
+      0.142,
+      "extended/sample_4921_sim:passenger_rear_right_emotion"
+    ],
+    "n_wrong_holdout": 6,
+    "n_wrong_real_seen": 0
+  },
+  "ENSEMBLE": {
+    "wrong": [],
+    "near1": 0,
+    "min": [
+      4.303,
+      "extended/sample_4921_sim:passenger_rear_right_emotion"
+    ],
+    "n_wrong_holdout": 0,
+    "n_wrong_real_seen": 0
+  },
+  "t4_ms_mean_all_members": 196.7
+}

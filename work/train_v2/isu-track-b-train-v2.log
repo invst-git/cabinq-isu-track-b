@@ -1,0 +1,141 @@
+[{"stream_name":"stdout","time":11.119917344,"data":"Tue Nov 24 13:16:01 2026       \n"}
+,{"stream_name":"stdout","time":11.119993455,"data":"+-----------------------------------------------------------------------------------------+\n"}
+,{"stream_name":"stdout","time":11.120006868,"data":"| NVIDIA-SMI 580.178.04             Driver Version: 580.178.04     CUDA Version: 13.0     |\n"}
+,{"stream_name":"stdout","time":11.120010161,"data":"+-----------------------------------------+------------------------+----------------------+\n"}
+,{"stream_name":"stdout","time":11.120012866,"data":"| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n"}
+,{"stream_name":"stdout","time":11.120015558,"data":"| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n"}
+,{"stream_name":"stdout","time":11.120018168,"data":"|                                         |                        |               MIG M. |\n"}
+,{"stream_name":"stdout","time":11.120020799,"data":"|=========================================+========================+======================|\n"}
+,{"stream_name":"stdout","time":11.171536898,"data":"|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\n"}
+,{"stream_name":"stdout","time":11.171563174,"data":"| N/A   58C    P8             11W /   70W |       0MiB /  15360MiB |      0%      Default |\n"}
+,{"stream_name":"stdout","time":11.171592648,"data":"|                                         |                        |                  N/A |\n"}
+,{"stream_name":"stdout","time":11.171598393,"data":"+-----------------------------------------+------------------------+----------------------+\n"}
+,{"stream_name":"stdout","time":11.171602969,"data":"|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\n"}
+,{"stream_name":"stdout","time":11.17160773,"data":"| N/A   57C    P8             11W /   70W |       0MiB /  15360MiB |      0%      Default |\n"}
+,{"stream_name":"stdout","time":11.171612319,"data":"|                                         |                        |                  N/A |\n"}
+,{"stream_name":"stdout","time":11.171616644,"data":"+-----------------------------------------+------------------------+----------------------+\n"}
+,{"stream_name":"stdout","time":11.172141418,"data":"\n"}
+,{"stream_name":"stdout","time":11.172153847,"data":"+-----------------------------------------------------------------------------------------+\n"}
+,{"stream_name":"stdout","time":11.172158566,"data":"| Processes:                                                                              |\n"}
+,{"stream_name":"stdout","time":11.172162667,"data":"|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n"}
+,{"stream_name":"stdout","time":11.172166673,"data":"|        ID   ID                                                               Usage      |\n"}
+,{"stream_name":"stdout","time":11.172170663,"data":"|=========================================================================================|\n"}
+,{"stream_name":"stdout","time":11.174049753,"data":"|  No running processes found                                                             |\n"}
+,{"stream_name":"stdout","time":11.174072069,"data":"+-----------------------------------------------------------------------------------------+\n"}
+,{"stream_name":"stdout","time":11.507012684,"data":"Filesystem      Size  Used Avail Use% Mounted on\n"}
+,{"stream_name":"stdout","time":11.507040590999999,"data":"overlay         8.0T  5.6T  2.5T  70% /\n"}
+,{"stream_name":"stdout","time":11.507046656,"data":"/dev/loop2       20G  176K   20G   1% /kaggle/working\n"}
+,{"stream_name":"stdout","time":11.525522561,"data":"               total        used        free      shared  buff/cache   available\n"}
+,{"stream_name":"stdout","time":11.525556539,"data":"Mem:              31           1          25           0           5          29\n"}
+,{"stream_name":"stdout","time":11.525560437,"data":"Swap:              0           0           0\n"}
+,{"stream_name":"stderr","time":28.919645023,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":28.919683264,"data":"gradio-client 2.7.2 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":28.919688478,"data":"gradio 6.30.0 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":28.919691726,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stderr","time":28.919694808,"data":"diffusers 0.42.0 requires huggingface-hub\u003c3.0,\u003e=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stdout","time":34.114246319,"data":"[13:16:24] variant v2 | torch 2.11.0+cu130 | transformers 4.57.6 | cuda True x2 | cfg {'seed': 0, 'holdout': 500, 'folds': 5, 'batch': 32, 'eval_batch': 48, 'workers': 4, 'layer_decay': 0.8, 'wd': 0.05, 'clip': 1.0, 'in_w': 952, 'in_h': 532, 'grad_ckpt': True, 's1_epochs': 6, 's1_head_warm_steps': 150, 's1_bb_warm_steps': 200, 's1_bb_lr': 5e-05, 's1_head_lr': 0.001, 's1_ema': 0.998, 's1_eval_every': 3, 's2_steps': 400, 's2_bb_warm_steps': 50, 's2_bb_lr': 1.5e-05, 's2_head_lr': 0.00015, 's2_ema': 0.99, 's2_real_per_batch': 3, 's2_twin_per_batch': 3}\n"}
+,{"stream_name":"stdout","time":34.291401883,"data":"[13:16:25] extracting /kaggle/input/notebooks/nitishxdandu/isu-track-b-data/isu_extended.tar ...\n"}
+,{"stream_name":"stdout","time":53.022991462,"data":"[13:16:43] extracting /kaggle/input/notebooks/nitishxdandu/isu-track-b-data/isu_main.tar ...\n"}
+,{"stream_name":"stdout","time":62.781544615,"data":"[13:16:53] scenes: 6060 (sim 6030, real 30, twins 30)\n"}
+,{"stream_name":"stdout","time":75.88924203,"data":"[13:17:06]   cached 1000/6060 (13s)\n"}
+,{"stream_name":"stdout","time":88.235621481,"data":"[13:17:19]   cached 2000/6060 (25s)\n"}
+,{"stream_name":"stdout","time":100.440565927,"data":"[13:17:31]   cached 3000/6060 (38s)\n"}
+,{"stream_name":"stdout","time":115.679910384,"data":"[13:17:46]   cached 4000/6060 (53s)\n"}
+,{"stream_name":"stdout","time":128.35253637900001,"data":"[13:17:59]   cached 5000/6060 (66s)\n"}
+,{"stream_name":"stdout","time":140.906586184,"data":"[13:18:11]   cached 6000/6060 (78s)\n"}
+,{"stream_name":"stdout","time":149.19111551,"data":"[13:18:19] train_sim 5500 | holdout 500 | real folds [6, 6, 6, 6, 6]\n"}
+,{"stream_name":"stderr","time":175.860421837,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":175.860498069,"data":"I0000 00:00:1795526326.668515       7 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stdout","time":199.562675146,"data":"[13:19:10] stage1 step 1/1026 loss 0.7293 | 10.92s/step, eta 186.5 min\n"}
+,{"stream_name":"stdout","time":427.666102389,"data":"[13:22:58] stage1 step 51/1026 loss 0.5951 | 4.69s/step, eta 76.2 min\n"}
+,{"stream_name":"stdout","time":660.371649134,"data":"[13:26:51] stage1 step 101/1026 loss 0.3714 | 4.67s/step, eta 72.0 min\n"}
+,{"stream_name":"stdout","time":891.832153714,"data":"[13:30:42] stage1 step 151/1026 loss 0.2174 | 4.66s/step, eta 67.9 min\n"}
+,{"stream_name":"stdout","time":1122.384614472,"data":"[13:34:33] stage1 step 201/1026 loss 0.1371 | 4.65s/step, eta 63.9 min\n"}
+,{"stream_name":"stdout","time":1352.362791733,"data":"[13:38:23] stage1 step 251/1026 loss 0.0798 | 4.64s/step, eta 59.9 min\n"}
+,{"stream_name":"stdout","time":1580.826758452,"data":"[13:42:11] stage1 step 301/1026 loss 0.0418 | 4.63s/step, eta 55.9 min\n"}
+,{"stream_name":"stdout","time":1809.236715195,"data":"[13:46:00] stage1 step 351/1026 loss 0.0224 | 4.62s/step, eta 51.9 min\n"}
+,{"stream_name":"stdout","time":2035.91532337,"data":"[13:49:46] stage1 step 401/1026 loss 0.0121 | 4.61s/step, eta 48.0 min\n"}
+,{"stream_name":"stdout","time":2262.280338344,"data":"[13:53:33] stage1 step 451/1026 loss 0.0082 | 4.60s/step, eta 44.1 min\n"}
+,{"stream_name":"stdout","time":2488.249376961,"data":"[13:57:19] stage1 step 501/1026 loss 0.0072 | 4.59s/step, eta 40.2 min\n"}
+,{"stream_name":"stdout","time":2574.488056899,"data":"[13:58:45]   [stage1 step 513] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":2576.448485864,"data":"[13:58:47]   [stage1 step 513] real_all_zero_shot: acc 0.9540 (22/478 wrong) {'driver_gender': 1, 'driver_emotion': 3, 'driver_phone': 14, 'driver_safety_belt': 2, 'baby_seat_orientation': 2}\n"}
+,{"stream_name":"stdout","time":2746.895422071,"data":"[14:01:37] stage1 step 551/1026 loss 0.0049 | 4.64s/step, eta 36.8 min\n"}
+,{"stream_name":"stdout","time":2969.720615752,"data":"[14:05:20] stage1 step 601/1026 loss 0.0041 | 4.63s/step, eta 32.8 min\n"}
+,{"stream_name":"stdout","time":3192.0047428,"data":"[14:09:02] stage1 step 651/1026 loss 0.0033 | 4.61s/step, eta 28.8 min\n"}
+,{"stream_name":"stdout","time":3413.646085557,"data":"[14:12:44] stage1 step 701/1026 loss 0.0023 | 4.60s/step, eta 24.9 min\n"}
+,{"stream_name":"stdout","time":3634.914524874,"data":"[14:16:25] stage1 step 751/1026 loss 0.0016 | 4.59s/step, eta 21.0 min\n"}
+,{"stream_name":"stdout","time":3856.118862037,"data":"[14:20:06] stage1 step 801/1026 loss 0.0015 | 4.58s/step, eta 17.2 min\n"}
+,{"stream_name":"stdout","time":4077.039785129,"data":"[14:23:47] stage1 step 851/1026 loss 0.0010 | 4.57s/step, eta 13.3 min\n"}
+,{"stream_name":"stdout","time":4298.128562646,"data":"[14:27:28] stage1 step 901/1026 loss 0.0006 | 4.56s/step, eta 9.5 min\n"}
+,{"stream_name":"stdout","time":4519.004644764,"data":"[14:31:09] stage1 step 951/1026 loss 0.0009 | 4.55s/step, eta 5.7 min\n"}
+,{"stream_name":"stdout","time":4740.198181122,"data":"[14:34:51] stage1 step 1001/1026 loss 0.0006 | 4.55s/step, eta 1.9 min\n"}
+,{"stream_name":"stdout","time":4850.597164321,"data":"[14:36:41] stage1 step 1026/1026 loss 0.0005 | 4.54s/step, eta 0.0 min\n"}
+,{"stream_name":"stdout","time":4882.330878724,"data":"[14:37:13]   [stage1 step 1026] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":4884.273145667,"data":"[14:37:15]   [stage1 step 1026] real_all_zero_shot: acc 0.9435 (27/478 wrong) {'driver_gender': 2, 'driver_emotion': 5, 'driver_phone': 14, 'driver_safety_belt': 3, 'colabottle_codriver_seat': 1, 'baby_seat_orientation': 2}\n"}
+,{"stream_name":"stdout","time":4889.339105557,"data":"[14:37:20] fold0 step 1/400 loss 0.0739 | 4.44s/step, eta 29.5 min\n"}
+,{"stream_name":"stdout","time":5115.101335586,"data":"[14:41:05] fold0 step 51/400 loss 0.0339 | 4.51s/step, eta 26.3 min\n"}
+,{"stream_name":"stdout","time":5338.683193151,"data":"[14:44:49] fold0 step 101/400 loss 0.0132 | 4.49s/step, eta 22.4 min\n"}
+,{"stream_name":"stdout","time":5559.661053056,"data":"[14:48:30] fold0 step 151/400 loss 0.0055 | 4.47s/step, eta 18.5 min\n"}
+,{"stream_name":"stdout","time":5780.317938947,"data":"[14:52:11] fold0 step 201/400 loss 0.0024 | 4.45s/step, eta 14.8 min\n"}
+,{"stream_name":"stdout","time":6000.586469759,"data":"[14:55:51] fold0 step 251/400 loss 0.0011 | 4.44s/step, eta 11.0 min\n"}
+,{"stream_name":"stdout","time":6220.574135245,"data":"[14:59:31] fold0 step 301/400 loss 0.0009 | 4.44s/step, eta 7.3 min\n"}
+,{"stream_name":"stdout","time":6440.76057612,"data":"[15:03:11] fold0 step 351/400 loss 0.0006 | 4.43s/step, eta 3.6 min\n"}
+,{"stream_name":"stdout","time":6656.324813075,"data":"[15:06:47] fold0 step 400/400 loss 0.0003 | 4.43s/step, eta 0.0 min\n"}
+,{"stream_name":"stdout","time":6688.22120189,"data":"[15:07:19]   [fold0] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":6688.649798562,"data":"[15:07:19]   [fold0] real_test: acc 1.0000 (0/94 wrong) {}\n"}
+,{"stream_name":"stdout","time":6694.146663566,"data":"[15:07:24] fold1 step 1/400 loss 0.0599 | 4.48s/step, eta 29.8 min\n"}
+,{"stream_name":"stdout","time":6920.108123209,"data":"[15:11:10] fold1 step 51/400 loss 0.0307 | 4.52s/step, eta 26.3 min\n"}
+,{"stream_name":"stdout","time":7143.938279865,"data":"[15:14:54] fold1 step 101/400 loss 0.0119 | 4.50s/step, eta 22.4 min\n"}
+,{"stream_name":"stdout","time":7366.292508131,"data":"[15:18:37] fold1 step 151/400 loss 0.0049 | 4.48s/step, eta 18.6 min\n"}
+,{"stream_name":"stdout","time":7587.408091605,"data":"[15:22:18] fold1 step 201/400 loss 0.0027 | 4.47s/step, eta 14.8 min\n"}
+,{"stream_name":"stdout","time":7807.998397148,"data":"[15:25:58] fold1 step 251/400 loss 0.0016 | 4.46s/step, eta 11.1 min\n"}
+,{"stream_name":"stdout","time":8028.592797995,"data":"[15:29:39] fold1 step 301/400 loss 0.0009 | 4.45s/step, eta 7.3 min\n"}
+,{"stream_name":"stdout","time":8248.94553058,"data":"[15:33:19] fold1 step 351/400 loss 0.0007 | 4.44s/step, eta 3.6 min\n"}
+,{"stream_name":"stdout","time":8465.008495533,"data":"[15:36:55] fold1 step 400/400 loss 0.0004 | 4.44s/step, eta 0.0 min\n"}
+,{"stream_name":"stdout","time":8496.795258625,"data":"[15:37:27]   [fold1] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":8497.205334861,"data":"[15:37:28]   [fold1] real_test: acc 1.0000 (0/98 wrong) {}\n"}
+,{"stream_name":"stdout","time":8502.737649218,"data":"[15:37:33] fold2 step 1/400 loss 0.0570 | 4.47s/step, eta 29.8 min\n"}
+,{"stream_name":"stdout","time":8728.630157608,"data":"[15:41:19] fold2 step 51/400 loss 0.0288 | 4.52s/step, eta 26.3 min\n"}
+,{"stream_name":"stdout","time":8952.642696574,"data":"[15:45:03] fold2 step 101/400 loss 0.0119 | 4.50s/step, eta 22.4 min\n"}
+,{"stream_name":"stdout","time":9174.492042797,"data":"[15:48:45] fold2 step 151/400 loss 0.0050 | 4.48s/step, eta 18.6 min\n"}
+,{"stream_name":"stdout","time":9395.479925513,"data":"[15:52:26] fold2 step 201/400 loss 0.0024 | 4.46s/step, eta 14.8 min\n"}
+,{"stream_name":"stdout","time":9616.223929704,"data":"[15:56:07] fold2 step 251/400 loss 0.0012 | 4.45s/step, eta 11.1 min\n"}
+,{"stream_name":"stdout","time":9836.822062459,"data":"[15:59:47] fold2 step 301/400 loss 0.0006 | 4.45s/step, eta 7.3 min\n"}
+,{"stream_name":"stdout","time":10057.166198695,"data":"[16:03:27] fold2 step 351/400 loss 0.0006 | 4.44s/step, eta 3.6 min\n"}
+,{"stream_name":"stdout","time":10273.314867591,"data":"[16:07:04] fold2 step 400/400 loss 0.0003 | 4.44s/step, eta 0.0 min\n"}
+,{"stream_name":"stdout","time":10305.207639463,"data":"[16:07:36]   [fold2] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":10305.618758716,"data":"[16:07:36]   [fold2] real_test: acc 1.0000 (0/103 wrong) {}\n"}
+,{"stream_name":"stdout","time":10311.500783753,"data":"[16:07:42] fold3 step 1/400 loss 0.0585 | 4.82s/step, eta 32.0 min\n"}
+,{"stream_name":"stdout","time":10537.052834754,"data":"[16:11:27] fold3 step 51/400 loss 0.0294 | 4.52s/step, eta 26.3 min\n"}
+,{"stream_name":"stdout","time":10760.499318492,"data":"[16:15:11] fold3 step 101/400 loss 0.0116 | 4.49s/step, eta 22.4 min\n"}
+,{"stream_name":"stdout","time":10982.680395737,"data":"[16:18:53] fold3 step 151/400 loss 0.0051 | 4.48s/step, eta 18.6 min\n"}
+,{"stream_name":"stdout","time":11203.142901479,"data":"[16:22:33] fold3 step 201/400 loss 0.0023 | 4.46s/step, eta 14.8 min\n"}
+,{"stream_name":"stdout","time":11422.450742375,"data":"[16:26:13] fold3 step 251/400 loss 0.0016 | 4.45s/step, eta 11.0 min\n"}
+,{"stream_name":"stdout","time":11641.165059587,"data":"[16:29:51] fold3 step 301/400 loss 0.0010 | 4.43s/step, eta 7.3 min\n"}
+,{"stream_name":"stdout","time":11859.374778295,"data":"[16:33:30] fold3 step 351/400 loss 0.0007 | 4.42s/step, eta 3.6 min\n"}
+,{"stream_name":"stdout","time":12073.243850429,"data":"[16:37:04] fold3 step 400/400 loss 0.0005 | 4.42s/step, eta 0.0 min\n"}
+,{"stream_name":"stdout","time":12105.08448108,"data":"[16:37:35]   [fold3] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":12105.501056536,"data":"[16:37:36]   [fold3] real_test: acc 1.0000 (0/89 wrong) {}\n"}
+,{"stream_name":"stdout","time":12111.019972468,"data":"[16:37:41] fold4 step 1/400 loss 0.0763 | 4.46s/step, eta 29.6 min\n"}
+,{"stream_name":"stdout","time":12336.431723184,"data":"[16:41:27] fold4 step 51/400 loss 0.0355 | 4.51s/step, eta 26.2 min\n"}
+,{"stream_name":"stdout","time":12558.938030155,"data":"[16:45:09] fold4 step 101/400 loss 0.0134 | 4.48s/step, eta 22.3 min\n"}
+,{"stream_name":"stdout","time":12780.337265395,"data":"[16:48:51] fold4 step 151/400 loss 0.0054 | 4.46s/step, eta 18.5 min\n"}
+,{"stream_name":"stdout","time":13001.060655773,"data":"[16:52:31] fold4 step 201/400 loss 0.0029 | 4.45s/step, eta 14.8 min\n"}
+,{"stream_name":"stdout","time":13220.855718757,"data":"[16:56:11] fold4 step 251/400 loss 0.0018 | 4.44s/step, eta 11.0 min\n"}
+,{"stream_name":"stdout","time":13439.916758408,"data":"[16:59:50] fold4 step 301/400 loss 0.0011 | 4.43s/step, eta 7.3 min\n"}
+,{"stream_name":"stdout","time":13658.566934799,"data":"[17:03:29] fold4 step 351/400 loss 0.0007 | 4.42s/step, eta 3.6 min\n"}
+,{"stream_name":"stdout","time":13872.650891396,"data":"[17:07:03] fold4 step 400/400 loss 0.0006 | 4.42s/step, eta 0.0 min\n"}
+,{"stream_name":"stdout","time":13904.451645905,"data":"[17:07:35]   [fold4] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":13904.86610329,"data":"[17:07:35]   [fold4] real_test: acc 0.9894 (1/94 wrong) {'driver_emotion': 1}\n"}
+,{"stream_name":"stdout","time":13905.799832166,"data":"[17:07:36] REAL CV (grouped 5-fold): acc 0.9979 (1/478 wrong)\n"}
+,{"stream_name":"stdout","time":13905.799898796,"data":"[17:07:36]   cv error {'key': 'main/sample_00004_real', 'feature': 'driver_emotion', 'true': 'HAPPY', 'pred': 'SERIOUS', 'p': 0.014}\n"}
+,{"stream_name":"stdout","time":13938.134155558,"data":"[17:08:08]   [soup] holdout_sim: acc 1.0000 (0/10392 wrong) {}\n"}
+,{"stream_name":"stdout","time":13940.198602274,"data":"[17:08:11]   [soup] real_all_seen: acc 1.0000 (0/478 wrong) {}\n"}
+,{"stream_name":"stdout","time":13940.79582411,"data":"[17:08:11] done\n"}
+,{"stream_name":"stderr","time":13953.392533909,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":13953.392582136,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":13953.681784054,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":13953.681818243,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":13954.636391562,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":13955.404227083,"data":"[NbConvertApp] Writing 461607 bytes to __results__.html\n"}
+]

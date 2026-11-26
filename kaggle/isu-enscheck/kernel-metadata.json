@@ -1,0 +1,19 @@
+{
+  "id": "nitishxdandu/isu-track-b-enscheck",
+  "title": "isu-track-b-enscheck",
+  "code_file": "kernel.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [
+    "nitishxdandu/isu-track-b-data",
+    "nitishxdandu/isu-track-b-train-v2",
+    "nitishxdandu/isu-track-b-train-v2s1",
+    "nitishxdandu/isu-track-b-train-v4"
+  ]
+}

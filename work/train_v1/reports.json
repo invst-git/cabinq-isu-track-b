@@ -1,0 +1,880 @@
+{
+  "stage1 step 684": {
+    "holdout_sim": {
+      "acc": 0.9998075442648191,
+      "n_features": 10392,
+      "n_wrong": 2,
+      "per_feature_wrong": {
+        "passenger_rear_right_emotion": 2
+      },
+      "errors": [
+        {
+          "key": "extended/sample_0737_sim",
+          "feature": "passenger_rear_right_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0253
+        },
+        {
+          "key": "extended/sample_1102_sim",
+          "feature": "passenger_rear_right_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.7547
+        }
+      ]
+    },
+    "real_all_zero_shot": {
+      "acc": 0.9435146443514645,
+      "n_features": 478,
+      "n_wrong": 27,
+      "per_feature_wrong": {
+        "driver_gender": 1,
+        "driver_emotion": 7,
+        "driver_phone": 14,
+        "driver_safety_belt": 3,
+        "suitcase": 1,
+        "suitcase_pose": 1
+      },
+      "errors": [
+        {
+          "key": "main/sample_00000_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.0063
+        },
+        {
+          "key": "main/sample_00001_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00002_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0404
+        },
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0925
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00005_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00006_real",
+          "feature": "driver_safety_belt",
+          "true": "NO",
+          "pred": "YES",
+          "p": 1.0
+        },
+        {
+          "key": "main/sample_00006_real",
+          "feature": "suitcase",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.1015
+        },
+        {
+          "key": "main/sample_00006_real",
+          "feature": "suitcase_pose",
+          "true": "UPWARDS",
+          "pred": "FLAT",
+          "p": 0.1167
+        },
+        {
+          "key": "main/sample_00007_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00008_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.995
+        },
+        {
+          "key": "main/sample_00008_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00014_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00015_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00016_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9366
+        },
+        {
+          "key": "main/sample_00016_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00017_real",
+          "feature": "driver_safety_belt",
+          "true": "NO",
+          "pred": "YES",
+          "p": 0.5542
+        },
+        {
+          "key": "main/sample_00019_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9528
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9957
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_safety_belt",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0016
+        },
+        {
+          "key": "main/sample_00022_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9936
+        },
+        {
+          "key": "main/sample_00022_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00023_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00024_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00026_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        }
+      ]
+    }
+  },
+  "stage1 step 1368": {
+    "holdout_sim": {
+      "acc": 0.9999037721324096,
+      "n_features": 10392,
+      "n_wrong": 1,
+      "per_feature_wrong": {
+        "passenger_rear_left_emotion": 1
+      },
+      "errors": [
+        {
+          "key": "extended/sample_3970_sim",
+          "feature": "passenger_rear_left_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0116
+        }
+      ]
+    },
+    "real_all_zero_shot": {
+      "acc": 0.9414225941422594,
+      "n_features": 478,
+      "n_wrong": 28,
+      "per_feature_wrong": {
+        "driver_gender": 5,
+        "driver_emotion": 5,
+        "driver_phone": 14,
+        "driver_safety_belt": 2,
+        "colacan_codriver_seat": 2
+      },
+      "errors": [
+        {
+          "key": "main/sample_00000_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.0006
+        },
+        {
+          "key": "main/sample_00001_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00002_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0899
+        },
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.1465
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00005_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00006_real",
+          "feature": "driver_safety_belt",
+          "true": "NO",
+          "pred": "YES",
+          "p": 1.0
+        },
+        {
+          "key": "main/sample_00007_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00008_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.5381
+        },
+        {
+          "key": "main/sample_00008_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00010_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 1.0
+        },
+        {
+          "key": "main/sample_00011_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00011_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9966
+        },
+        {
+          "key": "main/sample_00011_real",
+          "feature": "colacan_codriver_seat",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.3123
+        },
+        {
+          "key": "main/sample_00014_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00015_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00016_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_gender",
+          "true": "FEMALE",
+          "pred": "MALE",
+          "p": 0.6965
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_safety_belt",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00022_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.8572
+        },
+        {
+          "key": "main/sample_00022_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00023_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00023_real",
+          "feature": "colacan_codriver_seat",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.4987
+        },
+        {
+          "key": "main/sample_00024_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00026_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00029_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.2306
+        }
+      ]
+    }
+  },
+  "stage1 step 2052": {
+    "holdout_sim": {
+      "acc": 1.0,
+      "n_features": 10392,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    },
+    "real_all_zero_shot": {
+      "acc": 0.9435146443514645,
+      "n_features": 478,
+      "n_wrong": 27,
+      "per_feature_wrong": {
+        "driver_gender": 5,
+        "driver_emotion": 6,
+        "driver_phone": 14,
+        "driver_safety_belt": 2
+      },
+      "errors": [
+        {
+          "key": "main/sample_00000_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.0004
+        },
+        {
+          "key": "main/sample_00001_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00002_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.1894
+        },
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.2544
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00005_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00006_real",
+          "feature": "driver_safety_belt",
+          "true": "NO",
+          "pred": "YES",
+          "p": 1.0
+        },
+        {
+          "key": "main/sample_00007_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00008_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.5551
+        },
+        {
+          "key": "main/sample_00008_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00010_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 1.0
+        },
+        {
+          "key": "main/sample_00011_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00011_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9999
+        },
+        {
+          "key": "main/sample_00014_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00015_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00016_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00019_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9132
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_gender",
+          "true": "FEMALE",
+          "pred": "MALE",
+          "p": 0.935
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_safety_belt",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00022_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.9452
+        },
+        {
+          "key": "main/sample_00022_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00023_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00024_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00026_real",
+          "feature": "driver_phone",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        },
+        {
+          "key": "main/sample_00029_real",
+          "feature": "driver_gender",
+          "true": "MALE",
+          "pred": "FEMALE",
+          "p": 0.0056
+        }
+      ]
+    }
+  },
+  "fold0": {
+    "holdout_sim": {
+      "acc": 1.0,
+      "n_features": 10392,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    },
+    "real_test": {
+      "acc": 1.0,
+      "n_features": 94,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    }
+  },
+  "fold1": {
+    "holdout_sim": {
+      "acc": 0.9999037721324096,
+      "n_features": 10392,
+      "n_wrong": 1,
+      "per_feature_wrong": {
+        "passenger_rear_right_emotion": 1
+      },
+      "errors": [
+        {
+          "key": "extended/sample_0294_sim",
+          "feature": "passenger_rear_right_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.112
+        }
+      ]
+    },
+    "real_test": {
+      "acc": 0.9795918367346939,
+      "n_features": 98,
+      "n_wrong": 2,
+      "per_feature_wrong": {
+        "driver_emotion": 1,
+        "driver_safety_belt": 1
+      },
+      "errors": [
+        {
+          "key": "main/sample_00011_real",
+          "feature": "driver_emotion",
+          "true": "SERIOUS",
+          "pred": "HAPPY",
+          "p": 0.6645
+        },
+        {
+          "key": "main/sample_00020_real",
+          "feature": "driver_safety_belt",
+          "true": "YES",
+          "pred": "NO",
+          "p": 0.0
+        }
+      ]
+    }
+  },
+  "fold2": {
+    "holdout_sim": {
+      "acc": 1.0,
+      "n_features": 10392,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    },
+    "real_test": {
+      "acc": 0.9805825242718447,
+      "n_features": 103,
+      "n_wrong": 2,
+      "per_feature_wrong": {
+        "driver_emotion": 1,
+        "driver_safety_belt": 1
+      },
+      "errors": [
+        {
+          "key": "main/sample_00007_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0008
+        },
+        {
+          "key": "main/sample_00029_real",
+          "feature": "driver_safety_belt",
+          "true": "NO",
+          "pred": "YES",
+          "p": 0.9997
+        }
+      ]
+    }
+  },
+  "fold3": {
+    "holdout_sim": {
+      "acc": 1.0,
+      "n_features": 10392,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    },
+    "real_test": {
+      "acc": 1.0,
+      "n_features": 89,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    }
+  },
+  "fold4": {
+    "holdout_sim": {
+      "acc": 1.0,
+      "n_features": 10392,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    },
+    "real_test": {
+      "acc": 0.9787234042553191,
+      "n_features": 94,
+      "n_wrong": 2,
+      "per_feature_wrong": {
+        "driver_emotion": 2
+      },
+      "errors": [
+        {
+          "key": "main/sample_00003_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.0008
+        },
+        {
+          "key": "main/sample_00004_real",
+          "feature": "driver_emotion",
+          "true": "HAPPY",
+          "pred": "SERIOUS",
+          "p": 0.003
+        }
+      ]
+    }
+  },
+  "real_cv": {
+    "acc": 0.9874476987447699,
+    "n_wrong": 6,
+    "n_features": 478,
+    "errors": [
+      {
+        "key": "main/sample_00011_real",
+        "feature": "driver_emotion",
+        "true": "SERIOUS",
+        "pred": "HAPPY",
+        "p": 0.6645
+      },
+      {
+        "key": "main/sample_00020_real",
+        "feature": "driver_safety_belt",
+        "true": "YES",
+        "pred": "NO",
+        "p": 0.0
+      },
+      {
+        "key": "main/sample_00007_real",
+        "feature": "driver_emotion",
+        "true": "HAPPY",
+        "pred": "SERIOUS",
+        "p": 0.0008
+      },
+      {
+        "key": "main/sample_00029_real",
+        "feature": "driver_safety_belt",
+        "true": "NO",
+        "pred": "YES",
+        "p": 0.9997
+      },
+      {
+        "key": "main/sample_00003_real",
+        "feature": "driver_emotion",
+        "true": "HAPPY",
+        "pred": "SERIOUS",
+        "p": 0.0008
+      },
+      {
+        "key": "main/sample_00004_real",
+        "feature": "driver_emotion",
+        "true": "HAPPY",
+        "pred": "SERIOUS",
+        "p": 0.003
+      }
+    ]
+  },
+  "soup": {
+    "holdout_sim": {
+      "acc": 1.0,
+      "n_features": 10392,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    },
+    "real_all_seen": {
+      "acc": 1.0,
+      "n_features": 478,
+      "n_wrong": 0,
+      "per_feature_wrong": {},
+      "errors": []
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+ "members": [
+  "v2",
+  "v4"
+ ],
+ "combine": "mean_logit"
+}

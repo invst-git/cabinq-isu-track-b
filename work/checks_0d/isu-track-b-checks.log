@@ -1,0 +1,26 @@
+[{"stream_name":"stdout","time":8.28597102,"data":"name, memory.total [MiB]\n"}
+,{"stream_name":"stdout","time":8.286023961,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":8.286031347,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stderr","time":25.282971687,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":25.28301245,"data":"gradio-client 2.7.2 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":25.283017635,"data":"gradio 6.30.0 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":25.283020571,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stderr","time":25.283023264,"data":"diffusers 0.42.0 requires huggingface-hub\u003c3.0,\u003e=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stdout","time":35.218146345,"data":"[05:49:33] {'torch': '2.11.0+cu130', 'transformers': '4.57.6', 'timm': '1.0.30', 'gpus': ['Tesla T4', 'Tesla T4']}\n"}
+,{"stream_name":"stdout","time":35.672637006,"data":"[05:49:34] extracting /kaggle/input/notebooks/nitishxdandu/isu-track-b-data/isu_extended.tar\n"}
+,{"stream_name":"stdout","time":63.696752577,"data":"[05:50:02] extracting /kaggle/input/notebooks/nitishxdandu/isu-track-b-data/isu_main.tar\n"}
+,{"stream_name":"stdout","time":68.800486477,"data":"[05:50:07] v2 soup at /kaggle/input/notebooks/nitishxdandu/isu-track-b-train-v2/soup; holdout 500\n"}
+,{"stream_name":"stderr","time":93.67475578,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":93.674789748,"data":"I0000 00:00:1795585832.054723       8 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stdout","time":221.198384126,"data":"[05:52:39] A_v2_holdout_margins: {\"ok\": true, \"n_images\": 530, \"wrong\": [], \"holdout_scored_near_0p05\": 0, \"holdout_scored_near_1p0\": 0, \"holdout_min_margin\": [5.3364, \"extended/sample_1182_sim:passenger_rear_right_emotion\"], \"seconds\": 152.4}\n"}
+,{"stream_name":"stdout","time":274.718159596,"data":"[05:53:33] B_cuda_graph: {\"ok\": true, \"n\": 90, \"probs_bit_equal\": \"90/90\", \"max_abs_prob_diff\": 0.0, \"decision_flips\": 0, \"eager_ms_mean_p99\": [69.65, 80.07], \"graph_ms_mean_p99\": [71.4, 80.93], \"seconds\": 53.5}\n"}
+,{"stream_name":"stdout","time":379.541706091,"data":"[05:55:17] C_dinov3_b_fp16: {\"ok\": true, \"1088x608\": {\"num_prefix_tokens\": 5, \"embed_dim\": 768, \"mean_std\": [[0.485, 0.456, 0.406], [0.229, 0.224, 0.225]], \"tokens\": [16, 2589, 768], \"fp32_block_absmax_max\": 12872.1, \"fp16_block_absmax_max\": 12869.3, \"fp16_forward_finite\": true, \"fp16_vs_fp32_cos_min\": 0.999996, \"fp16_train_steps_finite\": [true, true, true], \"grad_scale_after\": 65536.0, \"s_per_step_bs32\": 4.53}, \"960x544\": {\"num_prefix_tokens\": 5, \"embed_dim\": 768, \"mean_std\": [[0.485, 0.456, 0.406], [0.229, 0.224, 0.225]], \"tokens\": [16, 2045, 768], \"fp32_block_absmax_max\": 12916.2, \"fp16_block_absmax_max\": 12920.0, \"fp16_forward_finite\": true, \"fp16_vs_fp32_cos_min\": 0.999998, \"fp16_train_steps_finite\": [true, true, true], \"grad_scale_after\": 65536.0, \"s_per_step_bs32\": 3.31}, \"seconds\": 104.8}\n"}
+,{"stream_name":"stdout","time":520.848250805,"data":"[05:57:39] D_dinov2_l_timing: {\"ok\": true, \"dinov2_l_644x364_ckpt1\": 4.62, \"dinov2_l_952x532_ckpt1\": 11.83, \"seconds\": 141.3}\n"}
+,{"stream_name":"stdout","time":520.84872201,"data":"[05:57:39] done\n"}
+,{"stream_name":"stderr","time":529.541869843,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":529.541919903,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":529.765830022,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":529.765879905,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":530.551225407,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":531.171774613,"data":"[NbConvertApp] Writing 392515 bytes to __results__.html\n"}
+]

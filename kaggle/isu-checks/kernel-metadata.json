@@ -1,0 +1,17 @@
+{
+  "id": "nitishxdandu/isu-track-b-checks",
+  "title": "isu-track-b-checks",
+  "code_file": "check_kernel.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [
+    "nitishxdandu/isu-track-b-data",
+    "nitishxdandu/isu-track-b-train-v2"
+  ]
+}

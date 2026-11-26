@@ -1,0 +1,97 @@
+[13:16:24] variant v2 | torch 2.11.0+cu130 | transformers 4.57.6 | cuda True x2 | cfg {'seed': 0, 'holdout': 500, 'folds': 5, 'batch': 32, 'eval_batch': 48, 'workers': 4, 'layer_decay': 0.8, 'wd': 0.05, 'clip': 1.0, 'in_w': 952, 'in_h': 532, 'grad_ckpt': True, 's1_epochs': 6, 's1_head_warm_steps': 150, 's1_bb_warm_steps': 200, 's1_bb_lr': 5e-05, 's1_head_lr': 0.001, 's1_ema': 0.998, 's1_eval_every': 3, 's2_steps': 400, 's2_bb_warm_steps': 50, 's2_bb_lr': 1.5e-05, 's2_head_lr': 0.00015, 's2_ema': 0.99, 's2_real_per_batch': 3, 's2_twin_per_batch': 3}
+[13:16:25] extracting /kaggle/input/notebooks/nitishxdandu/isu-track-b-data/isu_extended.tar ...
+[13:16:43] extracting /kaggle/input/notebooks/nitishxdandu/isu-track-b-data/isu_main.tar ...
+[13:16:53] scenes: 6060 (sim 6030, real 30, twins 30)
+[13:17:06]   cached 1000/6060 (13s)
+[13:17:19]   cached 2000/6060 (25s)
+[13:17:31]   cached 3000/6060 (38s)
+[13:17:46]   cached 4000/6060 (53s)
+[13:17:59]   cached 5000/6060 (66s)
+[13:18:11]   cached 6000/6060 (78s)
+[13:18:19] train_sim 5500 | holdout 500 | real folds [6, 6, 6, 6, 6]
+[13:19:10] stage1 step 1/1026 loss 0.7293 | 10.92s/step, eta 186.5 min
+[13:22:58] stage1 step 51/1026 loss 0.5951 | 4.69s/step, eta 76.2 min
+[13:26:51] stage1 step 101/1026 loss 0.3714 | 4.67s/step, eta 72.0 min
+[13:30:42] stage1 step 151/1026 loss 0.2174 | 4.66s/step, eta 67.9 min
+[13:34:33] stage1 step 201/1026 loss 0.1371 | 4.65s/step, eta 63.9 min
+[13:38:23] stage1 step 251/1026 loss 0.0798 | 4.64s/step, eta 59.9 min
+[13:42:11] stage1 step 301/1026 loss 0.0418 | 4.63s/step, eta 55.9 min
+[13:46:00] stage1 step 351/1026 loss 0.0224 | 4.62s/step, eta 51.9 min
+[13:49:46] stage1 step 401/1026 loss 0.0121 | 4.61s/step, eta 48.0 min
+[13:53:33] stage1 step 451/1026 loss 0.0082 | 4.60s/step, eta 44.1 min
+[13:57:19] stage1 step 501/1026 loss 0.0072 | 4.59s/step, eta 40.2 min
+[13:58:45]   [stage1 step 513] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[13:58:47]   [stage1 step 513] real_all_zero_shot: acc 0.9540 (22/478 wrong) {'driver_gender': 1, 'driver_emotion': 3, 'driver_phone': 14, 'driver_safety_belt': 2, 'baby_seat_orientation': 2}
+[14:01:37] stage1 step 551/1026 loss 0.0049 | 4.64s/step, eta 36.8 min
+[14:05:20] stage1 step 601/1026 loss 0.0041 | 4.63s/step, eta 32.8 min
+[14:09:02] stage1 step 651/1026 loss 0.0033 | 4.61s/step, eta 28.8 min
+[14:12:44] stage1 step 701/1026 loss 0.0023 | 4.60s/step, eta 24.9 min
+[14:16:25] stage1 step 751/1026 loss 0.0016 | 4.59s/step, eta 21.0 min
+[14:20:06] stage1 step 801/1026 loss 0.0015 | 4.58s/step, eta 17.2 min
+[14:23:47] stage1 step 851/1026 loss 0.0010 | 4.57s/step, eta 13.3 min
+[14:27:28] stage1 step 901/1026 loss 0.0006 | 4.56s/step, eta 9.5 min
+[14:31:09] stage1 step 951/1026 loss 0.0009 | 4.55s/step, eta 5.7 min
+[14:34:51] stage1 step 1001/1026 loss 0.0006 | 4.55s/step, eta 1.9 min
+[14:36:41] stage1 step 1026/1026 loss 0.0005 | 4.54s/step, eta 0.0 min
+[14:37:13]   [stage1 step 1026] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[14:37:15]   [stage1 step 1026] real_all_zero_shot: acc 0.9435 (27/478 wrong) {'driver_gender': 2, 'driver_emotion': 5, 'driver_phone': 14, 'driver_safety_belt': 3, 'colabottle_codriver_seat': 1, 'baby_seat_orientation': 2}
+[14:37:20] fold0 step 1/400 loss 0.0739 | 4.44s/step, eta 29.5 min
+[14:41:05] fold0 step 51/400 loss 0.0339 | 4.51s/step, eta 26.3 min
+[14:44:49] fold0 step 101/400 loss 0.0132 | 4.49s/step, eta 22.4 min
+[14:48:30] fold0 step 151/400 loss 0.0055 | 4.47s/step, eta 18.5 min
+[14:52:11] fold0 step 201/400 loss 0.0024 | 4.45s/step, eta 14.8 min
+[14:55:51] fold0 step 251/400 loss 0.0011 | 4.44s/step, eta 11.0 min
+[14:59:31] fold0 step 301/400 loss 0.0009 | 4.44s/step, eta 7.3 min
+[15:03:11] fold0 step 351/400 loss 0.0006 | 4.43s/step, eta 3.6 min
+[15:06:47] fold0 step 400/400 loss 0.0003 | 4.43s/step, eta 0.0 min
+[15:07:19]   [fold0] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[15:07:19]   [fold0] real_test: acc 1.0000 (0/94 wrong) {}
+[15:07:24] fold1 step 1/400 loss 0.0599 | 4.48s/step, eta 29.8 min
+[15:11:10] fold1 step 51/400 loss 0.0307 | 4.52s/step, eta 26.3 min
+[15:14:54] fold1 step 101/400 loss 0.0119 | 4.50s/step, eta 22.4 min
+[15:18:37] fold1 step 151/400 loss 0.0049 | 4.48s/step, eta 18.6 min
+[15:22:18] fold1 step 201/400 loss 0.0027 | 4.47s/step, eta 14.8 min
+[15:25:58] fold1 step 251/400 loss 0.0016 | 4.46s/step, eta 11.1 min
+[15:29:39] fold1 step 301/400 loss 0.0009 | 4.45s/step, eta 7.3 min
+[15:33:19] fold1 step 351/400 loss 0.0007 | 4.44s/step, eta 3.6 min
+[15:36:55] fold1 step 400/400 loss 0.0004 | 4.44s/step, eta 0.0 min
+[15:37:27]   [fold1] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[15:37:28]   [fold1] real_test: acc 1.0000 (0/98 wrong) {}
+[15:37:33] fold2 step 1/400 loss 0.0570 | 4.47s/step, eta 29.8 min
+[15:41:19] fold2 step 51/400 loss 0.0288 | 4.52s/step, eta 26.3 min
+[15:45:03] fold2 step 101/400 loss 0.0119 | 4.50s/step, eta 22.4 min
+[15:48:45] fold2 step 151/400 loss 0.0050 | 4.48s/step, eta 18.6 min
+[15:52:26] fold2 step 201/400 loss 0.0024 | 4.46s/step, eta 14.8 min
+[15:56:07] fold2 step 251/400 loss 0.0012 | 4.45s/step, eta 11.1 min
+[15:59:47] fold2 step 301/400 loss 0.0006 | 4.45s/step, eta 7.3 min
+[16:03:27] fold2 step 351/400 loss 0.0006 | 4.44s/step, eta 3.6 min
+[16:07:04] fold2 step 400/400 loss 0.0003 | 4.44s/step, eta 0.0 min
+[16:07:36]   [fold2] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[16:07:36]   [fold2] real_test: acc 1.0000 (0/103 wrong) {}
+[16:07:42] fold3 step 1/400 loss 0.0585 | 4.82s/step, eta 32.0 min
+[16:11:27] fold3 step 51/400 loss 0.0294 | 4.52s/step, eta 26.3 min
+[16:15:11] fold3 step 101/400 loss 0.0116 | 4.49s/step, eta 22.4 min
+[16:18:53] fold3 step 151/400 loss 0.0051 | 4.48s/step, eta 18.6 min
+[16:22:33] fold3 step 201/400 loss 0.0023 | 4.46s/step, eta 14.8 min
+[16:26:13] fold3 step 251/400 loss 0.0016 | 4.45s/step, eta 11.0 min
+[16:29:51] fold3 step 301/400 loss 0.0010 | 4.43s/step, eta 7.3 min
+[16:33:30] fold3 step 351/400 loss 0.0007 | 4.42s/step, eta 3.6 min
+[16:37:04] fold3 step 400/400 loss 0.0005 | 4.42s/step, eta 0.0 min
+[16:37:35]   [fold3] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[16:37:36]   [fold3] real_test: acc 1.0000 (0/89 wrong) {}
+[16:37:41] fold4 step 1/400 loss 0.0763 | 4.46s/step, eta 29.6 min
+[16:41:27] fold4 step 51/400 loss 0.0355 | 4.51s/step, eta 26.2 min
+[16:45:09] fold4 step 101/400 loss 0.0134 | 4.48s/step, eta 22.3 min
+[16:48:51] fold4 step 151/400 loss 0.0054 | 4.46s/step, eta 18.5 min
+[16:52:31] fold4 step 201/400 loss 0.0029 | 4.45s/step, eta 14.8 min
+[16:56:11] fold4 step 251/400 loss 0.0018 | 4.44s/step, eta 11.0 min
+[16:59:50] fold4 step 301/400 loss 0.0011 | 4.43s/step, eta 7.3 min
+[17:03:29] fold4 step 351/400 loss 0.0007 | 4.42s/step, eta 3.6 min
+[17:07:03] fold4 step 400/400 loss 0.0006 | 4.42s/step, eta 0.0 min
+[17:07:35]   [fold4] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[17:07:35]   [fold4] real_test: acc 0.9894 (1/94 wrong) {'driver_emotion': 1}
+[17:07:36] REAL CV (grouped 5-fold): acc 0.9979 (1/478 wrong)
+[17:07:36]   cv error {'key': 'main/sample_00004_real', 'feature': 'driver_emotion', 'true': 'HAPPY', 'pred': 'SERIOUS', 'p': 0.014}
+[17:08:08]   [soup] holdout_sim: acc 1.0000 (0/10392 wrong) {}
+[17:08:11]   [soup] real_all_seen: acc 1.0000 (0/478 wrong) {}
+[17:08:11] done

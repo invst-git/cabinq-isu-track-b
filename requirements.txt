@@ -1,0 +1,17 @@
+# Inference, local evaluation, checks and training code (CPU is enough except for training).
+# These are the exact versions used locally; torch 2.6.0 matches the official evaluation image.
+# Install torch from the CPU index first:
+#   pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cpu
+torch==2.6.0
+torchvision==0.21.0
+transformers==4.57.6
+timm==1.0.31
+safetensors==0.8.0
+numpy==2.5.5
+pillow==13.0.0
+huggingface_hub==0.36.2
+# Optional: Kaggle CLI for the training/check kernels
+kaggle==2.2.5
+# Optional: only for the facial-expression and crop-geometry experiments (tools/emotion_expert_gate.py, tools/crop_geometry.py)
+onnxruntime==1.32.0
+opencv-python-headless==5.1.0.95

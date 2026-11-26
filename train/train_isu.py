@@ -1,0 +1,563 @@
+"""Train the ISU Track B model: stage 1 synthetic-only, stage 2 per real-photo fold, fold soup.
+
+On Kaggle (GPU T4 x2, internet on, the isu-track-b-data kernel attached) this runs end to end
+with no arguments; kaggle/build_train_kernel.py bundles it with submission/isu_core.py.
+Local dry run (CPU, tiny random backbone, local subset):
+    python -I train/train_isu.py --dry-run --data data --out work/dryrun
+
+Protocol (reports/ISU Track B scoring strategies.md):
+- 500 synthetic scenes are held out as the hard gate; they never train any model.
+- The 30 twin renders of the real photos carry the real photos' labels, so they are excluded from
+  stage 1 and enter stage 2 only for the photos in that fold's training split.
+- Stage 2 starts every fold from the same stage-1 EMA weights; the shipped candidate is the
+  weight average (soup) of the fold models.
+"""
+import argparse
+import json
+import math
+import os
+import subprocess
+import sys
+import tarfile
+import time
+from multiprocessing import Pool
+from pathlib import Path
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from PIL import Image
+
+from isu_core import (CACHE_H, CACHE_W, FEATURES, VALUES, ISUNet, amp_ctx, prep,  # BUNDLE-STRIP
+                      save_weights, to_model_input, u8_to_float)  # BUNDLE-STRIP
+
+DINO_REPO = "facebook/dinov2-base"
+DINO_SHA = "f9e44c814b77203eaa57a6bdbbd535f21ede1415"  # Apache-2.0
+TRANSFORMERS_PIN = "__TRANSFORMERS_PIN__"  # filled by the bundler with the base image's version
+TIMM_PIN = "1.0.31"  # timm backbones only (v4); the submission Dockerfile must install the same version
+
+CFG = dict(
+    seed=0, split_seed=0, holdout=500, folds=5, batch=32, eval_batch=48, workers=4,  # split_seed: hold-out + folds
+    layer_decay=0.8, wd=0.05, clip=1.0,
+    dino_repo=DINO_REPO, dino_sha=DINO_SHA,  # backbone (any DINOv2 size: the head adapts to hidden_size)
+    timm_name=None,  # if set, a timm backbone (e.g. DINOv3) replaces the transformers DINOv2
+    in_w=644, in_h=364, grad_ckpt=False,  # model input size (multiples of 14) and activation checkpointing
+    # stage 1: synthetic only
+    s1_epochs=12, s1_head_warm_steps=150, s1_bb_warm_steps=200, s1_bb_lr=5e-5, s1_head_lr=1e-3,
+    s1_ema=0.998, s1_eval_every=4,
+    # stage 2: per fold, real photos + their twins oversampled into every batch
+    s2_steps=400, s2_bb_warm_steps=50, s2_bb_lr=1.5e-5, s2_head_lr=1.5e-4, s2_ema=0.99,
+    s2_real_per_batch=3, s2_twin_per_batch=3,
+)
+# Variants differ from v1 only where listed, so their results are comparable (same seed, splits, stage 2).
+VARIANTS = {
+    "v1": {},
+    # v2: native render resolution 952x532 (68x38 patches) for fine detail (faces, dark belt on dark
+    # shirt); stage 1 shortened because v1's synthetic hold-out saturated by epoch 4.
+    "v2": dict(in_w=952, in_h=532, grad_ckpt=True, s1_epochs=6, s1_eval_every=3),
+    # v2s1: v2's recipe with another training seed (init, data order, augmentation, stage-2 sampling) and the
+    # SAME hold-out and folds (split_seed 0), as a seed-ensemble partner for v2; v4 (DINOv3-B) was weaker than v2.
+    "v2s1": dict(in_w=952, in_h=532, grad_ckpt=True, s1_epochs=6, s1_eval_every=3, seed=1),
+    # v3: DINOv2-L/14 (304M backbone, 1024-d, 24 layers) at v1's input size and schedule; no-27 reached
+    # 10749/10749 with a DINOv2-L multi-head classifier. Checkpointing keeps batch 16 per T4 in memory.
+    "v3": dict(dino_repo="facebook/dinov2-large", dino_sha="47b73eefe95e8d44ec3623f8890bd894b6ea2d6c",
+               grad_ckpt=True),
+    # v4: DINOv3-B/16 (timm mirror, not gated) at 1088x608 = 68x38 patches, the same token grid as v2, as a
+    # differently pretrained ensemble partner for v2. Stage 1 cut to 3 epochs: v2's zero-shot real errors grew
+    # from 8 to 13 (non-phone) between 3 and 6 synthetic epochs while its synthetic hold-out was already 0 at 3.
+    "v4": dict(timm_name="vit_base_patch16_dinov3.lvd1689m", in_w=1088, in_h=608, grad_ckpt=True,
+               s1_epochs=3, s1_eval_every=3),
+    # v5 (fallback if DINOv3 is not fp16-safe on T4): DINOv2-L/14 at 644x364 with the short stage 1.
+    "v5": dict(dino_repo="facebook/dinov2-large", dino_sha="47b73eefe95e8d44ec3623f8890bd894b6ea2d6c",
+               grad_ckpt=True, s1_epochs=3, s1_eval_every=3),
+}
+VARIANT = "__VARIANT__"  # filled by the bundler; local runs default to v1
+DRY = dict(holdout=20, batch=4, eval_batch=8, workers=2, s1_epochs=1, s1_head_warm_steps=2,
+           s1_bb_warm_steps=2, s1_eval_every=1, s2_steps=3, s2_bb_warm_steps=1,
+           s2_real_per_batch=1, s2_twin_per_batch=1,
+           in_w=952, in_h=532, grad_ckpt=True)  # exercise the non-default input size and checkpointing
+
+LOG = None
+
+
+def log(msg):
+    line = f"[{time.strftime('%H:%M:%S')}] {msg}"
+    print(line, flush=True)
+    if LOG:
+        with open(LOG, "a", encoding="utf-8") as fh:
+            fh.write(line + "\n")
+
+
+# ----------------------------------------------------------------------------- data
+
+def find_data(arg):
+    if arg:
+        return Path(arg)
+    root = Path("/tmp/isu")
+    tars = sorted(Path("/kaggle/input").rglob("isu_*.tar"))
+    if not tars:
+        # Kaggle may mount an attached output already unpacked: link each branch folder instead.
+        for branch in ("main", "extended"):
+            hits = sorted(p.parent for p in Path("/kaggle/input").rglob(f"{branch}/labels") if p.is_dir())
+            if hits and not (root / branch).exists():
+                root.mkdir(parents=True, exist_ok=True)
+                (root / branch).symlink_to(hits[0], target_is_directory=True)
+                log(f"using unpacked {hits[0]} for {branch}")
+        if not (root / "main" / "labels").is_dir():
+            raise FileNotFoundError("no isu_*.tar or main/labels under /kaggle/input; attach the isu-track-b-data output")
+        return root
+    for t in tars:
+        branch = t.stem.replace("isu_", "")
+        if not (root / branch / "labels").is_dir():
+            log(f"extracting {t} ...")
+            with tarfile.open(t) as tf:
+                try:
+                    tf.extractall(root, filter="data")
+                except TypeError:
+                    tf.extractall(root)
+    return root
+
+
+def load_scenes(root):
+    """Scenes keyed by branch/stem: main uses 5-digit stems, extended 4-digit, never parse ints."""
+    scenes = []
+    for branch in ("main", "extended"):
+        bdir = root / branch
+        if not (bdir / "labels").is_dir():
+            continue
+        for lp in sorted((bdir / "labels").glob("*.json")):
+            stem = lp.stem
+            label = json.loads(lp.read_text())
+            sim = bdir / "images" / f"{stem}_sim.png"
+            real = bdir / "real" / f"{stem}_real.jpg"
+            has_real = branch == "main" and real.exists()
+            if sim.exists():
+                scenes.append(dict(key=f"{branch}/{stem}_sim", path=str(sim), label=label,
+                                   domain="sim", twin=has_real, scene=f"{branch}/{stem}"))
+            if has_real:
+                scenes.append(dict(key=f"{branch}/{stem}_real", path=str(real), label=label,
+                                   domain="real", twin=False, scene=f"{branch}/{stem}"))
+    return scenes
+
+
+def encode(scenes):
+    Y = np.zeros((len(scenes), len(FEATURES)), np.float32)
+    M = np.zeros_like(Y)
+    for n, s in enumerate(scenes):
+        for i, f in enumerate(FEATURES):
+            v = s["label"].get(f)
+            if v is None:
+                continue
+            v = str(v).strip().upper()
+            if v not in VALUES[f]:
+                raise ValueError(f"{s['key']}: {f}={v!r} not in {VALUES[f]}")
+            Y[n, i] = VALUES[f].index(v)
+            M[n, i] = 1.0
+    return Y, M
+
+
+def _load_one(path):
+    with Image.open(path) as im:  # exactly as the evaluator: open + convert("RGB"), no EXIF transpose
+        return prep(im.convert("RGB"))
+
+
+def build_cache(scenes, path, workers):
+    path = Path(path)
+    if path.exists():
+        arr = np.load(path, mmap_mode="r")
+        if arr.shape[0] == len(scenes):
+            return arr
+    tmp = path.with_suffix(".partial.npy")
+    arr = np.lib.format.open_memmap(tmp, mode="w+", dtype=np.uint8, shape=(len(scenes), CACHE_H, CACHE_W, 3))
+    t0 = time.time()
+    with Pool(workers) as pool:
+        for i, a in enumerate(pool.imap(_load_one, [s["path"] for s in scenes], chunksize=8)):
+            arr[i] = a
+            if (i + 1) % 1000 == 0:
+                log(f"  cached {i + 1}/{len(scenes)} ({time.time() - t0:.0f}s)")
+    arr.flush()
+    del arr
+    os.replace(tmp, path)
+    return np.load(path, mmap_mode="r")
+
+
+def make_folds(real_idx, Y, k, rng):
+    """Stratify the real photos on the hard real features so every fold sees both classes."""
+    keys = {}
+    cols = [FEATURES.index(f) for f in ("driver_phone", "driver_safety_belt", "driver_emotion", "baby_seat")]
+    for i in real_idx:
+        keys.setdefault(tuple(int(Y[i, c]) for c in cols), []).append(i)
+    order = []
+    for key in sorted(keys):
+        group = list(keys[key])
+        rng.shuffle(group)
+        order += group
+    folds = [[] for _ in range(k)]
+    for n, i in enumerate(order):
+        folds[n % k].append(i)
+    return [sorted(f) for f in folds]
+
+
+# ----------------------------------------------------------------------------- augmentation
+
+def _u(n, lo, hi, dev):
+    return torch.empty(n, device=dev).uniform_(lo, hi)
+
+
+def augment(x):
+    """Camera-style augmentation on the device. x: float (B, 3, H, W) in [0, 1].
+    No flips (they swap driver/co-driver and rear left/right); no hue shifts or grayscale
+    (shirt, phone and suitcase colours are labels)."""
+    B, dev = x.shape[0], x.device
+    # mild framing change: scale, rotation, shift (fixed cabin camera)
+    s = _u(B, 0.92, 1.08, dev)
+    r = _u(B, -3.0, 3.0, dev) * math.pi / 180
+    tx, ty = _u(B, -0.04, 0.04, dev), _u(B, -0.04, 0.04, dev)
+    cos, sin = torch.cos(r) / s, torch.sin(r) / s
+    theta = torch.stack([torch.stack([cos, -sin, tx], 1), torch.stack([sin, cos, ty], 1)], 1)
+    grid = F.affine_grid(theta, list(x.shape), align_corners=False)
+    x = F.grid_sample(x, grid, mode="bilinear", padding_mode="reflection", align_corners=False)
+    # white balance, exposure, contrast, mild saturation, gamma
+    wb = torch.ones(B, 3, 1, 1, device=dev)
+    wb[:, 0, 0, 0] = _u(B, 0.88, 1.12, dev)
+    wb[:, 2, 0, 0] = _u(B, 0.88, 1.12, dev)
+    x = x * wb * _u(B, 0.75, 1.25, dev).view(B, 1, 1, 1)
+    mean = x.mean((1, 2, 3), keepdim=True)
+    x = (x - mean) * _u(B, 0.8, 1.2, dev).view(B, 1, 1, 1) + mean
+    gray = x.mean(1, keepdim=True)
+    x = (x - gray) * _u(B, 0.85, 1.15, dev).view(B, 1, 1, 1) + gray
+    x = x.clamp(0, 1) ** _u(B, 0.85, 1.18, dev).view(B, 1, 1, 1)
+    # lower effective resolution (down-up), blur, sensor noise
+    sel = torch.rand(B, device=dev) < 0.25
+    if sel.any():
+        f = float(np.random.uniform(0.45, 0.85))
+        h, w = x.shape[-2:]
+        sub = F.interpolate(x[sel], scale_factor=f, mode="bilinear", align_corners=False, antialias=True)
+        x[sel] = F.interpolate(sub, size=(h, w), mode="bilinear", align_corners=False)
+    sel = torch.rand(B, device=dev) < 0.3
+    if sel.any():
+        sigma = float(np.random.uniform(0.4, 1.3))
+        k = torch.arange(-3, 4, device=dev, dtype=x.dtype)
+        k = torch.exp(-(k ** 2) / (2 * sigma ** 2))
+        k = k / k.sum()
+        sub = x[sel]
+        sub = F.conv2d(F.pad(sub, (3, 3, 0, 0), mode="reflect"), k.view(1, 1, 1, 7).repeat(3, 1, 1, 1), groups=3)
+        sub = F.conv2d(F.pad(sub, (0, 0, 3, 3), mode="reflect"), k.view(1, 1, 7, 1).repeat(3, 1, 1, 1), groups=3)
+        x[sel] = sub
+    sel = torch.rand(B, device=dev) < 0.5
+    if sel.any():
+        x[sel] = x[sel] + torch.randn_like(x[sel]) * float(np.random.uniform(0.005, 0.03))
+    return x.clamp_(0, 1)
+
+
+# ----------------------------------------------------------------------------- model / optim
+
+def make_net(dry):
+    if CFG.get("timm_name"):
+        import timm
+        spec = {"kind": "timm", "name": CFG["timm_name"], "img_size": [CFG["in_h"], CFG["in_w"]], "patch_size": 16}
+        if dry:  # tiny random model of the same family: exercises the timm path with no download
+            spec["model_kwargs"] = {"embed_dim": 64, "depth": 2, "num_heads": 2}
+            net = ISUNet(None, timm_spec=spec)
+        else:
+            net = ISUNet(None, timm_spec=spec)
+            pre = timm.create_model(CFG["timm_name"], pretrained=True, num_classes=0, img_size=tuple(spec["img_size"]))
+            net.backbone.load_state_dict(pre.state_dict(), strict=True)
+            del pre
+        if CFG["grad_ckpt"]:
+            net.backbone.set_grad_checkpointing(True)
+        return net
+    from transformers import Dinov2Config, Dinov2Model
+    if dry:
+        cfg = Dinov2Config(hidden_size=64, num_hidden_layers=2, num_attention_heads=2,
+                           intermediate_size=128, patch_size=14, image_size=518)
+        net = ISUNet(cfg)
+    else:
+        cfg = Dinov2Config.from_pretrained(CFG["dino_repo"], revision=CFG["dino_sha"])
+        net = ISUNet(cfg)
+        pre = Dinov2Model.from_pretrained(CFG["dino_repo"], revision=CFG["dino_sha"])
+        net.backbone.load_state_dict(pre.state_dict(), strict=True)
+    if CFG["grad_ckpt"]:  # recompute activations in backward: ~2600 tokens x batch 16 per T4 would not fit
+        net.backbone.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+    return net
+
+
+def param_groups(net, bb_lr, head_lr, decay, wd):
+    timm_bb = bool(getattr(net, "timm_spec", None))
+    n_layers = len(net.backbone.blocks) if timm_bb else net.backbone.config.num_hidden_layers
+    groups = {}
+    for name, p in net.named_parameters():
+        if not p.requires_grad:
+            continue
+        if name.startswith("backbone."):
+            part = name.split(".")[1]
+            if name.startswith("backbone.embeddings.") or part in ("patch_embed", "cls_token", "reg_token", "pos_embed", "rope"):
+                lid = 0
+            elif ".encoder.layer." in name:
+                lid = int(name.split(".encoder.layer.")[1].split(".")[0]) + 1
+            elif timm_bb and part == "blocks":
+                lid = int(name.split(".")[2]) + 1
+            else:
+                lid = n_layers + 1
+            kind, lr = "bb", bb_lr * decay ** (n_layers + 1 - lid)
+        else:
+            kind, lr = "head", head_lr
+        no_wd = p.ndim <= 1 or any(t in name for t in ("position_embeddings", "cls_token", "reg_token", "mask_token",
+                                                        "queries", "pos_embed"))
+        key = (kind, lr, 0.0 if no_wd else wd)
+        groups.setdefault(key, []).append(p)
+    return [dict(params=ps, lr=lr, base_lr=lr, weight_decay=w, kind=kind) for (kind, lr, w), ps in groups.items()]
+
+
+def set_lr(opt, step, total, head_warm, bb_warm):
+    cos = 0.5 * (1 + math.cos(math.pi * min(1.0, step / max(1, total))))
+    for g in opt.param_groups:
+        f = 0.01 + 0.99 * cos
+        if g["kind"] == "bb":
+            f = 0.0 if step < head_warm else f * min(1.0, (step - head_warm + 1) / max(1, bb_warm))
+        else:
+            f *= min(1.0, (step + 1) / 50)
+        g["lr"] = g["base_lr"] * f
+
+
+class EMA:
+    def __init__(self, net, decay):
+        self.decay, self.n = decay, 0
+        self.shadow = {k: v.detach().clone().float() for k, v in net.state_dict().items()}
+
+    @torch.no_grad()
+    def update(self, net):
+        self.n += 1
+        d = min(self.decay, (1 + self.n) / (10 + self.n))
+        for k, v in net.state_dict().items():
+            if v.dtype.is_floating_point:
+                self.shadow[k].mul_(d).add_(v.detach().float(), alpha=1 - d)
+            else:
+                self.shadow[k].copy_(v)
+
+
+# ----------------------------------------------------------------------------- train / eval
+
+class Runner:
+    def __init__(self, cache, Y, M, scenes, dev, dry):
+        self.cache, self.Y, self.M, self.scenes, self.dev, self.dry = cache, Y, M, scenes, dev, dry
+        self.amp = dev.type == "cuda"
+        self.n_gpu = torch.cuda.device_count() if self.amp else 0
+
+    def batch(self, idx):
+        xb = torch.from_numpy(np.stack([self.cache[i] for i in idx]))
+        if self.amp:
+            xb = xb.pin_memory()
+        return xb.to(self.dev, non_blocking=True)
+
+    def train(self, net, sampler, total, bb_lr, head_lr, head_warm, bb_warm, ema_decay, tag, eval_fn=None, eval_at=()):
+        net.to(self.dev).train()
+        model = nn.DataParallel(net) if self.n_gpu > 1 else net
+        opt = torch.optim.AdamW(param_groups(net, bb_lr, head_lr, CFG["layer_decay"], CFG["wd"]), betas=(0.9, 0.999))
+        scaler = torch.amp.GradScaler("cuda", enabled=self.amp)
+        ema = EMA(net, ema_decay)
+        t0, run_loss = time.time(), 0.0
+        for step in range(total):
+            idx = sampler(step)
+            set_lr(opt, step, total, head_warm, bb_warm)
+            x = to_model_input(augment(u8_to_float(self.batch(idx))), (CFG["in_w"], CFG["in_h"]))
+            y = torch.from_numpy(self.Y[idx]).to(self.dev)
+            m = torch.from_numpy(self.M[idx]).to(self.dev)
+            with amp_ctx(self.amp):
+                logits = model(x)
+            loss = (F.binary_cross_entropy_with_logits(logits.float(), y, reduction="none") * m).sum() / m.sum().clamp_min(1)
+            opt.zero_grad(set_to_none=True)
+            scaler.scale(loss).backward()
+            scaler.unscale_(opt)
+            nn.utils.clip_grad_norm_(net.parameters(), CFG["clip"])
+            scaler.step(opt)
+            scaler.update()
+            ema.update(net)
+            run_loss = 0.98 * run_loss + 0.02 * loss.item() if step else loss.item()
+            if step % 50 == 0 or step == total - 1:
+                el = time.time() - t0
+                log(f"{tag} step {step + 1}/{total} loss {run_loss:.4f} | {el / (step + 1):.2f}s/step, eta {el / (step + 1) * (total - step - 1) / 60:.1f} min")
+            if eval_fn and (step + 1) in eval_at:
+                eval_fn(ema.shadow, f"{tag} step {step + 1}")
+                net.train()
+        return ema.shadow
+
+    @torch.no_grad()
+    def evaluate(self, state, idx, eval_net):
+        eval_net.load_state_dict(state)
+        eval_net.to(self.dev).eval()
+        probs = []
+        for a in range(0, len(idx), CFG["eval_batch"]):
+            chunk = idx[a:a + CFG["eval_batch"]]
+            x = to_model_input(u8_to_float(self.batch(chunk)), (CFG["in_w"], CFG["in_h"]))
+            with amp_ctx(self.amp):
+                logits = eval_net(x)
+            probs.append(torch.sigmoid(logits.float()).cpu().numpy())
+        P = np.concatenate(probs) if probs else np.zeros((0, len(FEATURES)))
+        Yi, Mi = self.Y[idx].astype(bool), self.M[idx].astype(bool)
+        wrong = ((P >= 0.5) != Yi) & Mi
+        errors = []
+        for r, c in zip(*np.nonzero(wrong)):
+            f = FEATURES[c]
+            errors.append(dict(key=self.scenes[idx[r]]["key"], feature=f, true=VALUES[f][int(Yi[r, c])],
+                               pred=VALUES[f][int(P[r, c] >= 0.5)], p=round(float(P[r, c]), 4)))
+        per_feature = {FEATURES[c]: int(wrong[:, c].sum()) for c in range(len(FEATURES)) if wrong[:, c].any()}
+        n = int(Mi.sum())
+        return dict(acc=float(1 - wrong.sum() / max(1, n)), n_features=n, n_wrong=int(wrong.sum()),
+                    per_feature_wrong=per_feature, errors=errors[:300]), P
+
+
+def soup(states):
+    out = {}
+    for k in states[0]:
+        if states[0][k].dtype.is_floating_point:
+            out[k] = sum(s[k] for s in states) / len(states)
+        else:
+            out[k] = states[0][k].clone()
+    return out
+
+
+def main():
+    global LOG
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--data")
+    ap.add_argument("--out")
+    ap.add_argument("--skip-stage2", action="store_true")
+    ap.add_argument("--variant", help="local runs only; the Kaggle bundle fixes VARIANT")
+    args = ap.parse_args()
+    on_kaggle = Path("/kaggle/working").is_dir() and not args.dry_run
+    variant = VARIANT if VARIANT in VARIANTS else (args.variant or "v1")
+    CFG.update(VARIANTS[variant])
+    if args.dry_run and CFG.get("timm_name"):  # keep the variant's patch-16 input size in a timm dry run
+        DRY.pop("in_w", None)
+        DRY.pop("in_h", None)
+    if args.dry_run:
+        CFG.update(DRY)
+    out = Path(args.out or "/kaggle/working")
+    out.mkdir(parents=True, exist_ok=True)
+    LOG = out / "train_log.txt"
+
+    if on_kaggle:
+        subprocess.run("nvidia-smi; df -h /tmp /kaggle/working; free -g", shell=True)  # GPUs, disk for the 9.4 GB cache, RAM
+        if TRANSFORMERS_PIN and not TRANSFORMERS_PIN.startswith("__"):
+            subprocess.run([sys.executable, "-m", "pip", "install", "-q", f"transformers=={TRANSFORMERS_PIN}"], check=True)
+        if CFG.get("timm_name"):  # same timm as the submission image (Dockerfile pins it too)
+            subprocess.run([sys.executable, "-m", "pip", "install", "-q", f"timm=={TIMM_PIN}"], check=True)
+    import transformers
+    log(f"variant {variant} | torch {torch.__version__} | transformers {transformers.__version__} | cuda {torch.cuda.is_available()} x{torch.cuda.device_count()} | cfg {CFG}")
+
+    torch.manual_seed(CFG["seed"])
+    np.random.seed(CFG["seed"])
+    rng = np.random.RandomState(CFG["split_seed"])  # splits only; == seed (0) for v1-v5, so their splits are unchanged
+    dev = torch.device("cuda" if torch.cuda.is_available() and not args.dry_run else "cpu")
+
+    root = find_data(args.data)
+    scenes = load_scenes(root)
+    Y, M = encode(scenes)
+    log(f"scenes: {len(scenes)} (sim {sum(s['domain'] == 'sim' for s in scenes)}, real {sum(s['domain'] == 'real' for s in scenes)}, twins {sum(s['twin'] for s in scenes)})")
+    cache = build_cache(scenes, (out if args.dry_run else Path("/tmp")) / "isu_cache_u8.npy", CFG["workers"])
+
+    sim_idx = [i for i, s in enumerate(scenes) if s["domain"] == "sim" and not s["twin"]]
+    real_idx = [i for i, s in enumerate(scenes) if s["domain"] == "real"]
+    twin_of = {s["scene"]: i for i, s in enumerate(scenes) if s["twin"]}
+    hold = sorted(int(i) for i in rng.choice(sim_idx, CFG["holdout"], replace=False))
+    hold_set = set(hold)
+    train_sim = np.array([i for i in sim_idx if i not in hold_set])
+    folds = make_folds(real_idx, Y, CFG["folds"], rng)
+    (out / "splits.json").write_text(json.dumps({
+        "holdout": [scenes[i]["key"] for i in hold],
+        "folds": [[scenes[i]["key"] for i in f] for f in folds],
+        "n_train_sim": len(train_sim)}, indent=2))
+    log(f"train_sim {len(train_sim)} | holdout {len(hold)} | real folds {[len(f) for f in folds]}")
+
+    net = make_net(args.dry_run)
+    eval_net = (make_net(args.dry_run) if args.dry_run
+                else ISUNet(getattr(net.backbone, "config", None), timm_spec=net.timm_spec))
+    runner = Runner(cache, Y, M, scenes, dev, args.dry_run)
+    meta_base = {"dino_repo": CFG["dino_repo"], "dino_sha": CFG["dino_sha"], "timm_name": CFG.get("timm_name"),
+                 "transformers": transformers.__version__,
+                 "torch": torch.__version__, "cfg": CFG, "variant": variant,
+                 "input_size": [CFG["in_w"], CFG["in_h"]]}
+    reports = {}
+
+    def report(state, tag, idx_sets):
+        res = {}
+        for name, idx in idx_sets.items():
+            r, P = runner.evaluate(state, idx, eval_net)
+            if name.startswith("real"):  # per-photo probabilities: margins and ensembles can be judged later
+                r["probs"] = {scenes[i]["key"]: [round(float(p), 4) for p in P[j]] for j, i in enumerate(idx)}
+            res[name] = r
+            log(f"  [{tag}] {name}: acc {r['acc']:.4f} ({r['n_wrong']}/{r['n_features']} wrong) {r['per_feature_wrong']}")
+        reports[tag] = res
+        (out / "reports.json").write_text(json.dumps(reports, indent=2))
+        return res
+
+    # ---------------- stage 1: synthetic only (holdout and twins excluded)
+    steps_per_epoch = len(train_sim) // CFG["batch"]
+    total1 = steps_per_epoch * CFG["s1_epochs"]
+    perm_cache = {}
+
+    def sampler1(step):
+        ep, k = divmod(step, steps_per_epoch)
+        if ep not in perm_cache:
+            perm_cache.clear()
+            perm_cache[ep] = np.random.RandomState(CFG["seed"] + ep).permutation(train_sim)
+        return perm_cache[ep][k * CFG["batch"]:(k + 1) * CFG["batch"]]
+
+    eval_at = {steps_per_epoch * e for e in range(CFG["s1_eval_every"], CFG["s1_epochs"] + 1, CFG["s1_eval_every"])}
+    s1_eval = lambda st, tag: report(st, tag, {"holdout_sim": hold, "real_all_zero_shot": real_idx})
+    s1 = runner.train(net, sampler1, total1, CFG["s1_bb_lr"], CFG["s1_head_lr"], CFG["s1_head_warm_steps"],
+                      CFG["s1_bb_warm_steps"], CFG["s1_ema"], "stage1", s1_eval, eval_at)
+    if total1 not in eval_at:
+        s1_eval(s1, f"stage1 step {total1}")
+    eval_net.load_state_dict(s1)
+    save_weights(eval_net, out / "stage1", {**meta_base, "stage": "stage1"})
+    s1 = {k: v.cpu() for k, v in s1.items()}
+    if args.skip_stage2:
+        return
+
+    # ---------------- stage 2: per fold, real photos + their twins in every batch
+    fold_states, cv_errors, cv_wrong, cv_n = [], [], 0, 0
+    for k, test_real in enumerate(folds):
+        train_real = np.array([i for i in real_idx if i not in set(test_real)])
+        train_twin = np.array([twin_of[scenes[i]["scene"]] for i in train_real if scenes[i]["scene"] in twin_of])
+        n_sim = CFG["batch"] - CFG["s2_real_per_batch"] - CFG["s2_twin_per_batch"]
+        frng = np.random.RandomState(CFG["seed"] + 100 + k)
+
+        def sampler2(step, train_real=train_real, train_twin=train_twin, frng=frng):
+            return np.concatenate([frng.choice(train_sim, n_sim, replace=False),
+                                   frng.choice(train_real, CFG["s2_real_per_batch"], replace=False),
+                                   frng.choice(train_twin, CFG["s2_twin_per_batch"], replace=False)])
+
+        net.load_state_dict({k2: v.to(net.b.device) for k2, v in s1.items()})
+        st = runner.train(net, sampler2, CFG["s2_steps"], CFG["s2_bb_lr"], CFG["s2_head_lr"], 0,
+                          CFG["s2_bb_warm_steps"], CFG["s2_ema"], f"fold{k}")
+        res = report(st, f"fold{k}", {"holdout_sim": hold, "real_test": test_real})
+        cv_errors += res["real_test"]["errors"]
+        cv_wrong += res["real_test"]["n_wrong"]
+        cv_n += res["real_test"]["n_features"]
+        st = {k2: v.cpu() for k2, v in st.items()}
+        fold_states.append(st)
+        eval_net.load_state_dict(st)
+        save_weights(eval_net, out / f"fold{k}", {**meta_base, "stage": f"fold{k}"})
+    cv = dict(acc=1 - cv_wrong / max(1, cv_n), n_wrong=cv_wrong, n_features=cv_n, errors=cv_errors)
+    reports["real_cv"] = cv
+    log(f"REAL CV (grouped {CFG['folds']}-fold): acc {cv['acc']:.4f} ({cv_wrong}/{cv_n} wrong)")
+    for e in cv_errors:
+        log(f"  cv error {e}")
+
+    # ---------------- soup of the fold models: the shipping candidate, gated on the holdout
+    sp = soup(fold_states)
+    report(sp, "soup", {"holdout_sim": hold, "real_all_seen": real_idx})
+    eval_net.load_state_dict(sp)
+    save_weights(eval_net, out / "soup", {**meta_base, "stage": "soup", "real_cv": {k: cv[k] for k in ("acc", "n_wrong", "n_features")}})
+    (out / "reports.json").write_text(json.dumps(reports, indent=2))
+    if not args.dry_run:
+        Path("/tmp/isu_cache_u8.npy").unlink(missing_ok=True)
+    log("done")
+
+
+if __name__ == "__main__":
+    main()

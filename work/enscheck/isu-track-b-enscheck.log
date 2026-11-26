@@ -1,0 +1,54 @@
+[{"stream_name":"stderr","time":28.116985684,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":28.117027942,"data":"gradio-client 2.7.2 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":28.11703279,"data":"gradio 6.30.0 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":28.117035684,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stderr","time":28.117038416,"data":"diffusers 0.42.0 requires huggingface-hub\u003c3.0,\u003e=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stdout","time":65.044320499,"data":"members: [('v2', '/kaggle/input/notebooks/nitishxdandu/isu-track-b-train-v2/soup'), ('v2s1', '/kaggle/input/notebooks/nitishxdandu/isu-track-b-train-v2s1/soup'), ('v4', '/kaggle/input/notebooks/nitishxdandu/isu-track-b-train-v4/soup')]\n"}
+,{"stream_name":"stderr","time":96.039095364,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":96.039142147,"data":"I0000 00:00:1795626450.031735       7 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stdout","time":493.447536265,"data":"{\n"}
+,{"stream_name":"stdout","time":493.447590375,"data":" \"v2\": {\n"}
+,{"stream_name":"stdout","time":493.447595047,"data":"  \"near1\": 0,\n"}
+,{"stream_name":"stdout","time":493.447598321,"data":"  \"min\": [\n"}
+,{"stream_name":"stdout","time":493.447601428,"data":"   5.336,\n"}
+,{"stream_name":"stdout","time":493.447604473,"data":"   \"extended/sample_1182_sim:passenger_rear_right_emotion\"\n"}
+,{"stream_name":"stdout","time":493.447607577,"data":"  ],\n"}
+,{"stream_name":"stdout","time":493.447610507,"data":"  \"n_wrong_holdout\": 0,\n"}
+,{"stream_name":"stdout","time":493.447613582,"data":"  \"n_wrong_real_seen\": 0\n"}
+,{"stream_name":"stdout","time":493.447616629,"data":" },\n"}
+,{"stream_name":"stdout","time":493.447619513,"data":" \"v2s1\": {\n"}
+,{"stream_name":"stdout","time":493.447622426,"data":"  \"near1\": 0,\n"}
+,{"stream_name":"stdout","time":493.447625402,"data":"  \"min\": [\n"}
+,{"stream_name":"stdout","time":493.447628285,"data":"   5.468,\n"}
+,{"stream_name":"stdout","time":493.44763125,"data":"   \"extended/sample_2046_sim:passenger_rear_right_emotion\"\n"}
+,{"stream_name":"stdout","time":493.447634253,"data":"  ],\n"}
+,{"stream_name":"stdout","time":493.447637095,"data":"  \"n_wrong_holdout\": 0,\n"}
+,{"stream_name":"stdout","time":493.447640025,"data":"  \"n_wrong_real_seen\": 0\n"}
+,{"stream_name":"stdout","time":493.447643069,"data":" },\n"}
+,{"stream_name":"stdout","time":493.447645918,"data":" \"v4\": {\n"}
+,{"stream_name":"stdout","time":493.447648872,"data":"  \"near1\": 7,\n"}
+,{"stream_name":"stdout","time":493.447651757,"data":"  \"min\": [\n"}
+,{"stream_name":"stdout","time":493.447654715,"data":"   0.142,\n"}
+,{"stream_name":"stdout","time":493.447657613,"data":"   \"extended/sample_4921_sim:passenger_rear_right_emotion\"\n"}
+,{"stream_name":"stdout","time":493.447660605,"data":"  ],\n"}
+,{"stream_name":"stdout","time":493.447663594,"data":"  \"n_wrong_holdout\": 6,\n"}
+,{"stream_name":"stdout","time":493.447666524,"data":"  \"n_wrong_real_seen\": 0\n"}
+,{"stream_name":"stdout","time":493.447669435,"data":" },\n"}
+,{"stream_name":"stdout","time":493.447682839,"data":" \"ENSEMBLE\": {\n"}
+,{"stream_name":"stdout","time":493.447685421,"data":"  \"near1\": 0,\n"}
+,{"stream_name":"stdout","time":493.447687702,"data":"  \"min\": [\n"}
+,{"stream_name":"stdout","time":493.447689974,"data":"   4.303,\n"}
+,{"stream_name":"stdout","time":493.447692255,"data":"   \"extended/sample_4921_sim:passenger_rear_right_emotion\"\n"}
+,{"stream_name":"stdout","time":493.447694699,"data":"  ],\n"}
+,{"stream_name":"stdout","time":493.447696955,"data":"  \"n_wrong_holdout\": 0,\n"}
+,{"stream_name":"stdout","time":493.447699357,"data":"  \"n_wrong_real_seen\": 0\n"}
+,{"stream_name":"stdout","time":493.447701668,"data":" },\n"}
+,{"stream_name":"stdout","time":493.447703944,"data":" \"t4_ms_mean_all_members\": 196.7\n"}
+,{"stream_name":"stdout","time":493.447706353,"data":"}\n"}
+,{"stream_name":"stderr","time":502.587554405,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":502.587587586,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":502.835021842,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":502.835047668,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":503.68900188,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":504.280621113,"data":"[NbConvertApp] Writing 357984 bytes to __results__.html\n"}
+]

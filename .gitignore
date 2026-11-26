@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.venv/
+# dataset (download with tools/download_data.py; the real photos must not be redistributed)
+/data/
+# weights live in the GitHub release (tools/fetch_weights.py)
+/weights_dl/
+*.safetensors
+*.onnx
+*.tar
+# encrypted submission parts belong only in the starter-kit pull requests
+*.age.*
+# local runs and clones
+/runs/
+/Starterkit-ICSE-2027/

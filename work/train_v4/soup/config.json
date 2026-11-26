@@ -1,0 +1,9 @@
+{
+  "kind": "timm",
+  "name": "vit_base_patch16_dinov3.lvd1689m",
+  "img_size": [
+    608,
+    1088
+  ],
+  "patch_size": 16
+}
