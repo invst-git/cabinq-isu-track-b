@@ -1,0 +1,138 @@
+{
+ "v1": {
+  "pr": 34,
+  "branch": "invst-git-track-b",
+  "evaluations": [
+   {
+    "created": "2026-11-24T18:23:13Z",
+    "commit": "8a05f77007c8",
+    "hardware": "NVIDIA L4",
+    "evaluator": "2c0e78616029",
+    "metrics": {
+     "accuracy": 0.9998,
+     "scene_exact_match": 0.9962,
+     "correct_features": 10747.0,
+     "evaluated_features": 10749.0,
+     "latency_seconds_mean": 0.03236,
+     "latency_seconds_total": 17.15,
+     "wall_seconds_total": 27.44,
+     "scenes": 530.0,
+     "missing_predictions": 0.0,
+     "prediction_errors": 0.0,
+     "accuracy_real": 0.9958,
+     "scene_exact_match_real": 0.9333,
+     "scenes_real": 30.0,
+     "accuracy_synthetic": 1.0,
+     "scene_exact_match_synthetic": 1.0,
+     "scenes_synthetic": 500.0,
+     "runner_predict_seconds": 27.4,
+     "runner_seconds_per_scene": 0.052,
+     "scene_timeouts": 0.0,
+     "skipped_scenes": 0.0
+    }
+   }
+  ]
+ },
+ "v2": {
+  "pr": 35,
+  "branch": "invst-git-track-b-v2",
+  "evaluations": [
+   {
+    "created": "2026-11-25T05:44:01Z",
+    "commit": "079c8435f8f7",
+    "hardware": "NVIDIA L4",
+    "evaluator": "2c0e78616029",
+    "metrics": {
+     "accuracy": 0.9999,
+     "scene_exact_match": 0.9981,
+     "correct_features": 10748.0,
+     "evaluated_features": 10749.0,
+     "latency_seconds_mean": 0.04119,
+     "latency_seconds_total": 21.83,
+     "wall_seconds_total": 32.2,
+     "scenes": 530.0,
+     "missing_predictions": 0.0,
+     "prediction_errors": 0.0,
+     "accuracy_real": 0.9979,
+     "scene_exact_match_real": 0.9667,
+     "scenes_real": 30.0,
+     "accuracy_synthetic": 1.0,
+     "scene_exact_match_synthetic": 1.0,
+     "scenes_synthetic": 500.0,
+     "runner_predict_seconds": 32.2,
+     "runner_seconds_per_scene": 0.061,
+     "scene_timeouts": 0.0,
+     "skipped_scenes": 0.0
+    }
+   }
+  ]
+ },
+ "v2+v2s1": {
+  "pr": 38,
+  "branch": "invst-git-track-b-v2v2s1",
+  "evaluations": [
+   {
+    "created": "2026-11-25T16:59:43Z",
+    "commit": "4bc2a5665e7b",
+    "hardware": "NVIDIA L4",
+    "evaluator": "2c0e78616029",
+    "metrics": {
+     "accuracy": 0.9999,
+     "scene_exact_match": 0.9981,
+     "correct_features": 10748.0,
+     "evaluated_features": 10749.0,
+     "latency_seconds_mean": 0.06667,
+     "latency_seconds_total": 35.33,
+     "wall_seconds_total": 46.74,
+     "scenes": 530.0,
+     "missing_predictions": 0.0,
+     "prediction_errors": 0.0,
+     "accuracy_real": 0.9979,
+     "scene_exact_match_real": 0.9667,
+     "scenes_real": 30.0,
+     "accuracy_synthetic": 1.0,
+     "scene_exact_match_synthetic": 1.0,
+     "scenes_synthetic": 500.0,
+     "runner_predict_seconds": 46.7,
+     "runner_seconds_per_scene": 0.088,
+     "scene_timeouts": 0.0,
+     "skipped_scenes": 0.0
+    }
+   }
+  ]
+ },
+ "v2+v4": {
+  "pr": 39,
+  "branch": "invst-git-track-b-v2v4",
+  "evaluations": [
+   {
+    "created": "2026-11-25T20:01:19Z",
+    "commit": "b47bc3f40cc5",
+    "hardware": "NVIDIA L4",
+    "evaluator": "2c0e78616029",
+    "metrics": {
+     "accuracy": 0.9999,
+     "scene_exact_match": 0.9981,
+     "correct_features": 10748.0,
+     "evaluated_features": 10749.0,
+     "latency_seconds_mean": 0.06654,
+     "latency_seconds_total": 35.27,
+     "wall_seconds_total": 47.07,
+     "scenes": 530.0,
+     "missing_predictions": 0.0,
+     "prediction_errors": 0.0,
+     "accuracy_real": 0.9979,
+     "scene_exact_match_real": 0.9667,
+     "scenes_real": 30.0,
+     "accuracy_synthetic": 1.0,
+     "scene_exact_match_synthetic": 1.0,
+     "scenes_synthetic": 500.0,
+     "runner_predict_seconds": 47.1,
+     "runner_seconds_per_scene": 0.089,
+     "scene_timeouts": 0.0,
+     "skipped_scenes": 0.0
+    }
+   }
+  ]
+ }
+}

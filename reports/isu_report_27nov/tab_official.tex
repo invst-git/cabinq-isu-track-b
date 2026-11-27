@@ -1,0 +1,15 @@
+\begin{table}[t]
+\caption{Official evaluation results of the submitted variants on an NVIDIA L4: correct answers out of 10{,}749 (479 on real photos, 10{,}270 on renders), real scenes answered without error, and mean latency per image. Bold indicates the best values.}
+\label{tab:official}
+\small
+\begin{tabular}{@{}lcrrrcr@{}}
+\toprule
+System & PR & All & Real & Synth. & Real exact & s/img \\
+\midrule
+v1 & \#34 & 10{,}747 & 477 & \textbf{10{,}270} & 28/30 & \textbf{0.032} \\
+v2 (final) & \#35 & \textbf{10{,}748} & \textbf{478} & \textbf{10{,}270} & \textbf{29/30} & 0.041 \\
+v2 + v2s1 & \#38 & \textbf{10{,}748} & \textbf{478} & \textbf{10{,}270} & \textbf{29/30} & 0.067 \\
+v2 + v4 & \#39 & \textbf{10{,}748} & \textbf{478} & \textbf{10{,}270} & \textbf{29/30} & 0.067 \\
+\bottomrule
+\end{tabular}
+\end{table}

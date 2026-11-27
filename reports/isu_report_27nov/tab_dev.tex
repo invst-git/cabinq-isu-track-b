@@ -1,0 +1,22 @@
+\begin{table}[t]
+\caption{Development results. Synthetic hold-out: errors and smallest signed margin (logits) over 10{,}392 answers on 500 unseen renders. Real-photo CV: errors and log-loss over 478 answers. Training time in hours on 2$\times$T4; margin and log-loss are unavailable for v1. Bold indicates the best values.}
+\label{tab:dev}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcrrrrr@{}}
+\toprule
+& & \multicolumn{2}{c}{Synth.\ hold-out} & \multicolumn{2}{c}{Real-photo CV} & Train \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Variant & Input & errors & margin & errors & log-loss & h \\
+\midrule
+v1 & 644$\times$364 & \textbf{0} & -- & 6 & -- & 1.6 \\
+v2 & 952$\times$532 & \textbf{0} & $5.3$ & \textbf{1} & 0.011 & 3.9 \\
+v2s1 & 952$\times$532 & \textbf{0} & $5.5$ & 6 & 0.043 & 3.5 \\
+v4 & 1088$\times$608 & 6 & $-2.2$ & 6 & 0.028 & 3.5 \\
+\midrule
+v2 + v2s1 & -- & \textbf{0} & \textbf{6.3} & 3 & 0.019 & -- \\
+v2 + v4 & -- & \textbf{0} & 3.3 & 2 & \textbf{0.009} & -- \\
+v2 + v2s1 + v4 & -- & \textbf{0} & 4.3 & 3 & 0.014 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
